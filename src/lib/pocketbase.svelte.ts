@@ -1,7 +1,7 @@
 import { goto, invalidateAll } from '$app/navigation';
 import PocketBase from 'pocketbase';
 
-export const pb = new PocketBase('http://localhost:8090');
+export const pb = new PocketBase(import.meta.env.VITE_PB_URL);
 let pbUserState = $state(pb.authStore.record);
 
 export function getPbUser() {
