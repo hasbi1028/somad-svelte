@@ -28,7 +28,7 @@
 		submitting = true;
 		try {
 			const pbUser = await pb.collection('users').authWithPassword(email, password);
-			if (pbUser) goto('/');
+			if (pbUser) goto('/dashboard');
 		} catch (err: any) {
 			if (err.status === 400) {
 				addError(err.data?.message || 'Email atau kata sandi salah');
