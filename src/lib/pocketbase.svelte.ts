@@ -4,6 +4,9 @@ import PocketBase from "pocketbase";
 export const pb = new PocketBase(import.meta.env.VITE_PB_URL);
 let pbUserState = $state(pb.authStore.record);
 
+// globally disable auto cancellation
+pb.autoCancellation(false);
+
 export function getPbUser() {
   return pbUserState;
 }

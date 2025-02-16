@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import { pb } from '$lib/pocketbase.svelte';
     import Button from '$lib/components/ui/button/button.svelte';
-    import File from "lucide-svelte/icons/file";
+    import FileIcon from "lucide-svelte/icons/file";
     import * as Dialog from "$lib/components/ui/dialog/index.js";
     import * as Alert from "$lib/components/ui/alert/index.js";
     import { Input } from "$lib/components/ui/input/index.js";
@@ -15,10 +15,12 @@
     let csvFile: File | null = $state(null);
     let importStatus = $state('');
     let importError = $state('');
+
+    
     
     // Function to generate CSV template for download
     function generateCSVTemplate() {
-      const headers = ['nik', 'full_name', 'email', 'tempat_lahir', 'tanggal_lahir', 'no_hp', 'alamat', 'role'];
+      const headers = ['id', 'full_name', 'email','emailVisibility', 'birth_place', 'birth_date','gender','nik', 'phone_number', 'address', 'role'];
       const csvContent = headers.join(',') + '\n';
       const blob = new Blob([csvContent], { type: 'text/csv' });
       const url = URL.createObjectURL(blob);
@@ -40,7 +42,7 @@
     async function exportUsers() {
       try {
         const users = await pb.collection('users').getFullList();
-        const headers = ['nik', 'full_name', 'email', 'tempat_lahir', 'tanggal_lahir', 'no_hp', 'alamat', 'role'];
+        const headers = ['id', 'full_name', 'email','emailVisibility', 'birth_place', 'birth_date','gender','nik', 'phone_number', 'address', 'role'];
         const rows = users.map(user => 
           headers.map(header => user[header] || '').join(',')
         );
@@ -70,88 +72,107 @@
         csvFile = input.files[0];
       }
     }
-    
-    // Import users from CSV using $effect for side effects if needed
-    async function importUsers() {
-      if (!csvFile) {
-        importError = 'Please select a CSV file';
-        return;
-      }
+
+    async function fetchUsers() {
       
-      importStatus = 'Importing...';
-      importError = '';
+    }
+    
+    async function importUsers() {
+  if (!csvFile) {
+    importError = 'Please select a CSV file';
+    return;
+  }
+  
+  importStatus = 'Importing...';
+  importError = '';
+  
+  try {
+    const text = await csvFile.text();
+    const rows = text.split('\n');
+    const headers = rows[0].split(',');
+    
+    let successCount = 0;
+    let errorCount = 0;
+    
+    for (let i = 1; i < rows.length; i++) {
+      if (!rows[i].trim()) continue;
+      
+      const values = rows[i].split(',');
+      const userData: Record<string, any> = {};
+      
+      headers.forEach((header, index) => {
+        if (values[index]) {
+          userData[header.trim()] = values[index].trim();
+        }
+      });
       
       try {
-        const text = await csvFile.text();
-        const rows = text.split('\n');
-        const headers = rows[0].split(',');
-        
-        let successCount = 0;
-        let errorCount = 0;
-        
-        // Process each row (skip header)
-        for (let i = 1; i < rows.length; i++) {
-          if (!rows[i].trim()) continue;
-          const values = rows[i].split(',');
-          const userData: Record<string, any> = {};
+        // if (!userData.id) {
+        //   throw new Error(`Row ${i}: Missing id field`);
+        // }
+
+        const existingUsers = await pb.collection('users').getList(1, 1, {
+          filter: `id = "${userData.id}"`
+        });
+
+        if (existingUsers.items.length > 0) {
+          // Remove fields that shouldn't be updated
+          delete userData.id;
+          delete userData.password;
+          delete userData.passwordConfirm;
           
-          headers.forEach((header, index) => {
-            if (values[index]) {
-              userData[header.trim()] = values[index].trim();
-            }
+
+          // Update existing user
+          await pb.collection('users').update(existingUsers.items[0].id, {
+            full_name: userData.full_name,
+            birth_place: userData.birth_place,
+            birth_date: userData.birth_date,
+            gender: userData.gender,
+            nik: userData.nik,
+            phone_number: userData.phone_number,
+            address: userData.address,
+            role: userData.role,
+            emailVisibility: userData.emailVisibility
           });
-          
-          try {
-            if (!userData.email || !userData.full_name || !userData.nik) {
-              throw new Error(`Row ${i}: Missing required fields (email, full_name, or nik)`);
-            }
-            
-            const existingUsers = await pb.collection('users').getList(1, 1, {
-              filter: `email = "${userData.email}"`
-            });
-            
-            if (existingUsers.items.length > 0) {
-              await pb.collection('users').update(existingUsers.items[0].id, userData);
-            } else {
-              userData.password = userData.nik;
-              userData.passwordConfirm = userData.nik;
-              await pb.collection('users').create(userData);
-            }
-            successCount++;
-          } catch (err) {
-            console.error(`Error importing row ${i}:`, err);
-            errorCount++;
-          }
+        } else {
+          // Create new user
+          userData.password = userData.nik;
+          userData.email = userData.nik+'@gmail.com';
+          userData.passwordConfirm = userData.nik;
+          await pb.collection('users').create(userData);
         }
-        
-        importStatus = `Import complete: ${successCount} users imported successfully, ${errorCount} errors`;
-        
-        if (typeof fetchUsers === 'function') {
-          fetchUsers();
-        }
-        
-        if (errorCount === 0) {
-          setTimeout(() => {
-            importDialogOpen = false;
-            importStatus = '';
-            csvFile = null;
-          }, 3000);
-        }
-        
+        successCount++;
       } catch (err) {
-        console.error("Error parsing CSV:", err);
-        importError = 'Error parsing CSV file. Please check the format.';
-        importStatus = '';
+        console.error(`Error processing row ${i}:`, err);
+        errorCount++;
       }
     }
+    
+    importStatus = `Import complete: ${successCount} users imported/updated, ${errorCount} errors`;
+    
+    if (errorCount === 0) {
+      setTimeout(() => {
+        importDialogOpen = false;
+        importStatus = '';
+        csvFile = null;
+      }, 3000);
+    }
+    
+  } catch (err) {
+    console.error("Error parsing CSV:", err);
+    importError = 'Error parsing CSV file. Please check the format.';
+    importStatus = '';
+  }
+}
+
   </script>
   
   <!-- Buttons using imported components remain the same -->
-  <Button size="sm" variant="outline" class="h-7 gap-1" on:click={() => importDialogOpen = true}>
+  <Button size="sm" variant="outline" class="h-7 gap-1" onclick={() => importDialogOpen = true}>
     <Upload class="size-3.5" />
     <span class="sr-only sm:not-sr-only sm:whitespace-nowrap">Import</span>
   </Button>
-  <Button size="sm" variant="outline" class="h-7 gap-1" on:click={() => exportDialogOpen = true}>
+  <Button size="sm" variant="outline" class="h-7 gap-1" onclick={() => exportDialogOpen = true}>
     <Download class="size-3.5" />
     <span class="sr-only sm:not-sr-only sm:whitespace-nowrap">Export</span>
   </Button>
@@ -172,10 +193,10 @@
           <Input 
             type="file" 
             accept=".csv" 
-            on:change={handleFileChange} 
+            onchange={handleFileChange} 
             aria-label="Upload CSV file"
           />
-          <Button variant="outline" on:click={generateCSVTemplate}>
+          <Button variant="outline" onclick={generateCSVTemplate}>
             Download CSV Template
           </Button>
         </div>
@@ -195,8 +216,8 @@
         {/if}
       </div>
       <Dialog.Footer>
-        <Button variant="outline" on:click={() => importDialogOpen = false}>Cancel</Button>
-        <Button on:click={importUsers} disabled={!csvFile}>Import</Button>
+        <Button variant="outline" onclick={() => importDialogOpen = false}>Cancel</Button>
+        <Button onclick={importUsers} disabled={!csvFile}>Import</Button>
       </Dialog.Footer>
     </Dialog.Content>
   </Dialog.Root>
@@ -212,16 +233,16 @@
       </Dialog.Header>
       <div class="grid gap-4 py-4">
         <div class="flex flex-col gap-4">
-          <Button on:click={exportUsers}>
+          <Button onclick={exportUsers}>
             Export All Users
           </Button>
-          <Button variant="outline" on:click={generateCSVTemplate}>
+          <Button variant="outline" onclick={generateCSVTemplate}>
             Download Empty Template
           </Button>
         </div>
       </div>
       <Dialog.Footer>
-        <Button variant="outline" on:click={() => exportDialogOpen = false}>Cancel</Button>
+        <Button variant="outline" onclick={() => exportDialogOpen = false}>Cancel</Button>
       </Dialog.Footer>
     </Dialog.Content>
   </Dialog.Root>

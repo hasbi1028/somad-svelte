@@ -42,7 +42,7 @@
     
     
     // Nilai perPage dan siblingCount berdasarkan ukuran layar
-    const perPage = $derived(isDesktop.current ? 1 : 8);
+    const perPage = $derived(isDesktop.current ? 5 : 8);
     // Sibling count digunakan untuk mengatur jumlah pagination yang ditampilkan pada pagination root
     // Nilai 1 berarti menampilkan 1 pagination sebelum dan sesudah pagination yang aktif
     // Nilai 0 berarti tidak menampilkan pagination sebelum dan sesudah pagination yang aktif
@@ -177,6 +177,7 @@ $effect(() => {
                     <Table.Head>Email</Table.Head>
                     <Table.Head>Tempat Lahir</Table.Head>
                     <Table.Head>Tanggal Lahir</Table.Head>
+                    <Table.Head>Jenis Kelamin</Table.Head>
                     <Table.Head>No. HP</Table.Head>
                     <Table.Head>Alamat</Table.Head>
                     <Table.Head>Role</Table.Head>
@@ -191,17 +192,24 @@ $effect(() => {
                           alt="User"
                           class="aspect-square rounded-md object-cover"
                           height="64"
-                          src={user.avatar ? pb.files.getURL(user, user.avatar) : "/images/placeholder.svg"}
+                          src={user.avatar ? pb.files.getURL(user, user.avatar) : "https://placehold.co/40"}
                           width="64"
                         />
                       </Table.Cell>
                       <Table.Cell class="font-medium">{user.nik}</Table.Cell>
                       <Table.Cell>{user.full_name}</Table.Cell>
                       <Table.Cell>{user.email}</Table.Cell>
-                      <Table.Cell class="hidden md:table-cell">{user.tempat_lahir}</Table.Cell>
-                      <Table.Cell class="hidden md:table-cell">{user.tanggal_lahir}</Table.Cell>
-                      <Table.Cell class="hidden md:table-cell">{user.no_hp}</Table.Cell>
-                      <Table.Cell class="hidden md:table-cell">{user.alamat}</Table.Cell>
+                      <Table.Cell class="hidden md:table-cell">{user.birth_place}</Table.Cell>
+                      <Table.Cell class="hidden md:table-cell">
+                        {new Date(user.birth_date).toLocaleString("id-ID", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </Table.Cell>
+                      <Table.Cell class="hidden md:table-cell">{user.gender}</Table.Cell>
+                      <Table.Cell class="hidden md:table-cell">{user.phone_number}</Table.Cell>
+                      <Table.Cell class="hidden md:table-cell">{user.address}</Table.Cell>
                       <Table.Cell class="hidden md:table-cell">{user.role}</Table.Cell>
                       <Table.Cell>
                         <DropdownMenu.Root>

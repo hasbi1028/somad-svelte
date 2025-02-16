@@ -10,7 +10,7 @@
 		user: {
 			name: "mtsn2kolut",
 			email: "mtsn.pakue@gmail.com",
-			avatar: "favicon.png",
+			avatar: "/favicon.png",
 		},
 		
 		navMain: [
