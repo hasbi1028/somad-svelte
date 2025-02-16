@@ -1,5 +1,5 @@
-import { goto, invalidateAll } from '$app/navigation';
-import PocketBase from 'pocketbase';
+import { goto, invalidateAll } from "$app/navigation";
+import PocketBase from "pocketbase";
 
 export const pb = new PocketBase(import.meta.env.VITE_PB_URL);
 let pbUserState = $state(pb.authStore.record);

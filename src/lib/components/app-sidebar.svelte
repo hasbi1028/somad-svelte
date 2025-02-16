@@ -1,141 +1,111 @@
 <script lang="ts" module>
 	import AudioWaveform from "lucide-svelte/icons/audio-waveform";
 	import BookOpen from "lucide-svelte/icons/book-open";
-	import Bot from "lucide-svelte/icons/bot";
-	import ChartPie from "lucide-svelte/icons/chart-pie";
-	import Command from "lucide-svelte/icons/command";
-	import Frame from "lucide-svelte/icons/frame";
-	import GalleryVerticalEnd from "lucide-svelte/icons/gallery-vertical-end";
-	import Map from "lucide-svelte/icons/map";
-	import Settings2 from "lucide-svelte/icons/settings-2";
-	import SquareTerminal from "lucide-svelte/icons/square-terminal";
+	import { Contact, NotebookPen } from 'lucide-svelte';
+	import { BookUser } from 'lucide-svelte';
+	import { Users } from 'lucide-svelte';
 
 	// This is sample data.
 	const data = {
 		user: {
-			name: "shadcn",
-			email: "m@example.com",
-			avatar: "/avatars/shadcn.jpg",
+			name: "mtsn2kolut",
+			email: "mtsn.pakue@gmail.com",
+			avatar: "favicon.png",
 		},
-		teams: [
-			{
-				name: "Acme Inc",
-				logo: GalleryVerticalEnd,
-				plan: "Enterprise",
-			},
-			{
-				name: "Acme Corp.",
-				logo: AudioWaveform,
-				plan: "Startup",
-			},
-			{
-				name: "Evil Corp.",
-				logo: Command,
-				plan: "Free",
-			},
-		],
+		
 		navMain: [
 			{
-				title: "Playground",
+				title: "Kesiswaan",
 				url: "#",
-				icon: SquareTerminal,
-				isActive: true,
+				icon: BookUser,
+				isActive: false,
 				items: [
 					{
-						title: "History",
+						title: "Daftar Siswa",
+						url: "/dashboard/student",
+					},
+					{
+						title: "Mutasi",
 						url: "#",
 					},
 					{
-						title: "Starred",
+						title: "Akademik",
 						url: "#",
 					},
 					{
-						title: "Settings",
+						title: "Daftar PIP",
 						url: "#",
 					},
 				],
 			},
 			{
-				title: "Models",
+				title: "Guru dan Tendik",
 				url: "#",
-				icon: Bot,
+				icon: Contact,
 				items: [
 					{
-						title: "Genesis",
+						title: "Daftar GTK",
 						url: "#",
 					},
 					{
-						title: "Explorer",
+						title: "Mutasi",
 						url: "#",
 					},
 					{
-						title: "Quantum",
+						title: "Pengajuan GTK",
 						url: "#",
 					},
 				],
 			},
 			{
-				title: "Documentation",
+				title: "Akademik",
 				url: "#",
 				icon: BookOpen,
 				items: [
 					{
-						title: "Introduction",
+						title: "Rombongan Belajar",
 						url: "#",
 					},
 					{
-						title: "Get Started",
-						url: "#",
-					},
-					{
-						title: "Tutorials",
-						url: "#",
-					},
-					{
-						title: "Changelog",
+						title: "Rapor Online",
 						url: "#",
 					},
 				],
 			},
-			{
-				title: "Settings",
-				url: "#",
-				icon: Settings2,
-				items: [
-					{
-						title: "General",
-						url: "#",
-					},
-					{
-						title: "Team",
-						url: "#",
-					},
-					{
-						title: "Billing",
-						url: "#",
-					},
-					{
-						title: "Limits",
-						url: "#",
-					},
-				],
-			},
+			// {
+			// 	title: "Settings",
+			// 	url: "#",
+			// 	icon: Settings2,
+			// 	items: [
+			// 		{
+			// 			title: "General",
+			// 			url: "#",
+			// 		},
+			// 		{
+			// 			title: "Team",
+			// 			url: "#",
+			// 		},
+			// 		{
+			// 			title: "Billing",
+			// 			url: "#",
+			// 		},
+			// 		{
+			// 			title: "Limits",
+			// 			url: "#",
+			// 		},
+			// 	],
+			// },
 		],
 		projects: [
 			{
-				name: "Design Engineering",
-				url: "#",
-				icon: Frame,
+				name: "Absensi",
+				url: "/dashboard/attendances",
+				icon: NotebookPen,
 			},
 			{
-				name: "Sales & Marketing",
-				url: "#",
-				icon: ChartPie,
-			},
-			{
-				name: "Travel",
-				url: "#",
-				icon: Map,
+				name: "Data User",
+				url: "/dashboard/user",
+				icon: Users,
 			},
 		],
 	};
@@ -145,7 +115,6 @@
 	import NavMain from "$lib/components/nav-main.svelte";
 	import NavProjects from "$lib/components/nav-projects.svelte";
 	import NavUser from "$lib/components/nav-user.svelte";
-	import TeamSwitcher from "$lib/components/team-switcher.svelte";
 	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 	import type { ComponentProps } from "svelte";
 
@@ -157,8 +126,11 @@
 </script>
 
 <Sidebar.Root bind:ref {collapsible} {...restProps}>
-	<Sidebar.Header>
-		<TeamSwitcher teams={data.teams} />
+	<Sidebar.Header
+	>
+		<img src="/favicon.png" alt="logo" class="h-20 w-20 m-2 self-center " />
+		<!-- svelte-ignore a11y_distracting_elements -->
+		<marquee class="text-sm self-center">Made by Hasbi Awal</marquee>
 	</Sidebar.Header>
 	<Sidebar.Content>
 		<NavMain items={data.navMain} />

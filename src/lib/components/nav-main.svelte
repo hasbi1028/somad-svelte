@@ -2,6 +2,7 @@
 	import * as Collapsible from "$lib/components/ui/collapsible/index.js";
 	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 	import ChevronRight from "lucide-svelte/icons/chevron-right";
+	import { House } from 'lucide-svelte';
 
 	let {
 		items,
@@ -22,7 +23,10 @@
 </script>
 
 <Sidebar.Group>
-	<Sidebar.GroupLabel>Platform</Sidebar.GroupLabel>
+	<Sidebar.GroupLabel>Menu Utama</Sidebar.GroupLabel>
+	<Sidebar.MenuButton>
+		<a href="/dashboard" class="flex items-center"><House class="mr-2 h-4 w-4" /> Dashboard</a>
+	</Sidebar.MenuButton>
 	<Sidebar.Menu>
 		{#each items as mainItem (mainItem.title)}
 			<Collapsible.Root open={mainItem.isActive} class="group/collapsible">
