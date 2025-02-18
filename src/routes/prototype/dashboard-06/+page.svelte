@@ -1,28 +1,28 @@
 <script lang="ts">
-	import File from "lucide-svelte/icons/file";
-	import House from "lucide-svelte/icons/house";
-	import ChartLine from "lucide-svelte/icons/chart-line";
-	import ListFilter from "lucide-svelte/icons/list-filter";
-	import Ellipsis from "lucide-svelte/icons/ellipsis";
-	import Package from "lucide-svelte/icons/package";
-	import Package2 from "lucide-svelte/icons/package-2";
-	import PanelLeft from "lucide-svelte/icons/panel-left";
-	import CirclePlus from "lucide-svelte/icons/circle-plus";
-	import Search from "lucide-svelte/icons/search";
-	import Settings from "lucide-svelte/icons/settings";
-	import ShoppingCart from "lucide-svelte/icons/shopping-cart";
-	import UsersRound from "lucide-svelte/icons/users-round";
+	import File from 'lucide-svelte/icons/file';
+	import House from 'lucide-svelte/icons/house';
+	import ChartLine from 'lucide-svelte/icons/chart-line';
+	import ListFilter from 'lucide-svelte/icons/list-filter';
+	import Ellipsis from 'lucide-svelte/icons/ellipsis';
+	import Package from 'lucide-svelte/icons/package';
+	import Package2 from 'lucide-svelte/icons/package-2';
+	import PanelLeft from 'lucide-svelte/icons/panel-left';
+	import CirclePlus from 'lucide-svelte/icons/circle-plus';
+	import Search from 'lucide-svelte/icons/search';
+	import Settings from 'lucide-svelte/icons/settings';
+	import ShoppingCart from 'lucide-svelte/icons/shopping-cart';
+	import UsersRound from 'lucide-svelte/icons/users-round';
 
-	import { Badge } from "$lib/components/ui/badge/index.js";
-	import * as Breadcrumb from "$lib/components/ui/breadcrumb/index.js";
-	import { Button } from "$lib/components/ui/button/index.js";
-	import * as Card from "$lib/components/ui/card/index.js";
-	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-	import { Input } from "$lib/components/ui/input/index.js";
-	import * as Sheet from "$lib/components/ui/sheet/index.js";
-	import * as Table from "$lib/components/ui/table/index.js";
-	import * as Tabs from "$lib/components/ui/tabs/index.js";
-	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { Badge } from '$lib/components/ui/badge/index.js';
+	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import * as Card from '$lib/components/ui/card/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
+	import * as Table from '$lib/components/ui/table/index.js';
+	import * as Tabs from '$lib/components/ui/tabs/index.js';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 </script>
 
 <div class="bg-muted/40 flex min-h-screen w-full flex-col">
@@ -220,12 +220,7 @@
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
 					{#snippet child({ props })}
-						<Button
-							{...props}
-							size="icon"
-							variant="outline"
-							class="overflow-hidden rounded-full"
-						>
+						<Button {...props} size="icon" variant="outline" class="overflow-hidden rounded-full">
 							<img
 								src="/images/placeholder-user.jpg"
 								width={36}
@@ -255,20 +250,13 @@
 						<Tabs.Trigger value="all">All</Tabs.Trigger>
 						<Tabs.Trigger value="active">Active</Tabs.Trigger>
 						<Tabs.Trigger value="draft">Draft</Tabs.Trigger>
-						<Tabs.Trigger value="archived" class="hidden sm:flex">
-							Archived
-						</Tabs.Trigger>
+						<Tabs.Trigger value="archived" class="hidden sm:flex">Archived</Tabs.Trigger>
 					</Tabs.List>
 					<div class="ml-auto flex items-center gap-2">
 						<DropdownMenu.Root>
 							<DropdownMenu.Trigger>
 								{#snippet child({ props })}
-									<Button
-										{...props}
-										size="sm"
-										variant="outline"
-										class="h-7 gap-1 text-sm"
-									>
+									<Button {...props} size="sm" variant="outline" class="h-7 gap-1 text-sm">
 										<ListFilter class="size-3.5" />
 										<span class="sr-only sm:not-sr-only">Filter</span>
 									</Button>
@@ -278,9 +266,7 @@
 								<DropdownMenu.Group>
 									<DropdownMenu.GroupHeading>Filter by</DropdownMenu.GroupHeading>
 									<DropdownMenu.Separator />
-									<DropdownMenu.CheckboxItem checked>
-										Active
-									</DropdownMenu.CheckboxItem>
+									<DropdownMenu.CheckboxItem checked>Active</DropdownMenu.CheckboxItem>
 									<DropdownMenu.CheckboxItem>Draft</DropdownMenu.CheckboxItem>
 									<DropdownMenu.CheckboxItem>Archived</DropdownMenu.CheckboxItem>
 								</DropdownMenu.Group>
@@ -288,15 +274,11 @@
 						</DropdownMenu.Root>
 						<Button size="sm" variant="outline" class="h-7 gap-1">
 							<File class="size-3.5" />
-							<span class="sr-only sm:not-sr-only sm:whitespace-nowrap">
-								Export
-							</span>
+							<span class="sr-only sm:not-sr-only sm:whitespace-nowrap"> Export </span>
 						</Button>
 						<Button size="sm" class="h-7 gap-1">
 							<CirclePlus class="size-3.5" />
-							<span class="sr-only sm:not-sr-only sm:whitespace-nowrap">
-								Add Product
-							</span>
+							<span class="sr-only sm:not-sr-only sm:whitespace-nowrap"> Add Product </span>
 						</Button>
 					</div>
 				</div>
@@ -321,12 +303,8 @@
 										<Table.Head>Name</Table.Head>
 										<Table.Head>Status</Table.Head>
 										<Table.Head>Price</Table.Head>
-										<Table.Head class="hidden md:table-cell">
-											Total Sales
-										</Table.Head>
-										<Table.Head class="hidden md:table-cell">
-											Created at
-										</Table.Head>
+										<Table.Head class="hidden md:table-cell">Total Sales</Table.Head>
+										<Table.Head class="hidden md:table-cell">Created at</Table.Head>
 										<Table.Head>
 											<span class="sr-only">Actions</span>
 										</Table.Head>
@@ -343,27 +321,18 @@
 												width="64"
 											/>
 										</Table.Cell>
-										<Table.Cell class="font-medium">
-											Laser Lemonade Machine
-										</Table.Cell>
+										<Table.Cell class="font-medium">Laser Lemonade Machine</Table.Cell>
 										<Table.Cell>
 											<Badge variant="outline">Draft</Badge>
 										</Table.Cell>
 										<Table.Cell>$499.99</Table.Cell>
 										<Table.Cell class="hidden md:table-cell">25</Table.Cell>
-										<Table.Cell class="hidden md:table-cell">
-											2023-07-12 10:42 AM
-										</Table.Cell>
+										<Table.Cell class="hidden md:table-cell">2023-07-12 10:42 AM</Table.Cell>
 										<Table.Cell>
 											<DropdownMenu.Root>
 												<DropdownMenu.Trigger>
 													{#snippet child({ props })}
-														<Button
-															{...props}
-															aria-haspopup="true"
-															size="icon"
-															variant="ghost"
-														>
+														<Button {...props} aria-haspopup="true" size="icon" variant="ghost">
 															<Ellipsis class="size-4" />
 															<span class="sr-only">Toggle menu</span>
 														</Button>
@@ -371,12 +340,9 @@
 												</DropdownMenu.Trigger>
 												<DropdownMenu.Content align="end">
 													<DropdownMenu.Group>
-														<DropdownMenu.GroupHeading>
-															Actions
-														</DropdownMenu.GroupHeading>
+														<DropdownMenu.GroupHeading>Actions</DropdownMenu.GroupHeading>
 														<DropdownMenu.Item>Edit</DropdownMenu.Item>
-														<DropdownMenu.Item>Delete</DropdownMenu.Item
-														>
+														<DropdownMenu.Item>Delete</DropdownMenu.Item>
 													</DropdownMenu.Group>
 												</DropdownMenu.Content>
 											</DropdownMenu.Root>
@@ -392,27 +358,18 @@
 												width="64"
 											/>
 										</Table.Cell>
-										<Table.Cell class="font-medium">
-											Hypernova Headphones
-										</Table.Cell>
+										<Table.Cell class="font-medium">Hypernova Headphones</Table.Cell>
 										<Table.Cell>
 											<Badge variant="outline">Active</Badge>
 										</Table.Cell>
 										<Table.Cell>$129.99</Table.Cell>
 										<Table.Cell class="hidden md:table-cell">100</Table.Cell>
-										<Table.Cell class="hidden md:table-cell">
-											2023-10-18 03:21 PM
-										</Table.Cell>
+										<Table.Cell class="hidden md:table-cell">2023-10-18 03:21 PM</Table.Cell>
 										<Table.Cell>
 											<DropdownMenu.Root>
 												<DropdownMenu.Trigger>
 													{#snippet child({ props })}
-														<Button
-															{...props}
-															aria-haspopup="true"
-															size="icon"
-															variant="ghost"
-														>
+														<Button {...props} aria-haspopup="true" size="icon" variant="ghost">
 															<Ellipsis class="size-4" />
 															<span class="sr-only">Toggle menu</span>
 														</Button>
@@ -420,12 +377,9 @@
 												</DropdownMenu.Trigger>
 												<DropdownMenu.Content align="end">
 													<DropdownMenu.Group>
-														<DropdownMenu.GroupHeading>
-															Actions
-														</DropdownMenu.GroupHeading>
+														<DropdownMenu.GroupHeading>Actions</DropdownMenu.GroupHeading>
 														<DropdownMenu.Item>Edit</DropdownMenu.Item>
-														<DropdownMenu.Item>Delete</DropdownMenu.Item
-														>
+														<DropdownMenu.Item>Delete</DropdownMenu.Item>
 													</DropdownMenu.Group>
 												</DropdownMenu.Content>
 											</DropdownMenu.Root>
@@ -441,27 +395,18 @@
 												width="64"
 											/>
 										</Table.Cell>
-										<Table.Cell class="font-medium">
-											AeroGlow Desk Lamp
-										</Table.Cell>
+										<Table.Cell class="font-medium">AeroGlow Desk Lamp</Table.Cell>
 										<Table.Cell>
 											<Badge variant="outline">Active</Badge>
 										</Table.Cell>
 										<Table.Cell>$39.99</Table.Cell>
 										<Table.Cell class="hidden md:table-cell">50</Table.Cell>
-										<Table.Cell class="hidden md:table-cell">
-											2023-11-29 08:15 AM
-										</Table.Cell>
+										<Table.Cell class="hidden md:table-cell">2023-11-29 08:15 AM</Table.Cell>
 										<Table.Cell>
 											<DropdownMenu.Root>
 												<DropdownMenu.Trigger>
 													{#snippet child({ props })}
-														<Button
-															{...props}
-															aria-haspopup="true"
-															size="icon"
-															variant="ghost"
-														>
+														<Button {...props} aria-haspopup="true" size="icon" variant="ghost">
 															<Ellipsis class="size-4" />
 															<span class="sr-only">Toggle menu</span>
 														</Button>
@@ -469,12 +414,9 @@
 												</DropdownMenu.Trigger>
 												<DropdownMenu.Content align="end">
 													<DropdownMenu.Group>
-														<DropdownMenu.GroupHeading>
-															Actions
-														</DropdownMenu.GroupHeading>
+														<DropdownMenu.GroupHeading>Actions</DropdownMenu.GroupHeading>
 														<DropdownMenu.Item>Edit</DropdownMenu.Item>
-														<DropdownMenu.Item>Delete</DropdownMenu.Item
-														>
+														<DropdownMenu.Item>Delete</DropdownMenu.Item>
 													</DropdownMenu.Group>
 												</DropdownMenu.Content>
 											</DropdownMenu.Root>
@@ -490,27 +432,18 @@
 												width="64"
 											/>
 										</Table.Cell>
-										<Table.Cell class="font-medium">
-											TechTonic Energy Drink
-										</Table.Cell>
+										<Table.Cell class="font-medium">TechTonic Energy Drink</Table.Cell>
 										<Table.Cell>
 											<Badge variant="secondary">Draft</Badge>
 										</Table.Cell>
 										<Table.Cell>$2.99</Table.Cell>
 										<Table.Cell class="hidden md:table-cell">0</Table.Cell>
-										<Table.Cell class="hidden md:table-cell">
-											2023-12-25 11:59 PM
-										</Table.Cell>
+										<Table.Cell class="hidden md:table-cell">2023-12-25 11:59 PM</Table.Cell>
 										<Table.Cell>
 											<DropdownMenu.Root>
 												<DropdownMenu.Trigger>
 													{#snippet child({ props })}
-														<Button
-															{...props}
-															aria-haspopup="true"
-															size="icon"
-															variant="ghost"
-														>
+														<Button {...props} aria-haspopup="true" size="icon" variant="ghost">
 															<Ellipsis class="size-4" />
 															<span class="sr-only">Toggle menu</span>
 														</Button>
@@ -518,12 +451,9 @@
 												</DropdownMenu.Trigger>
 												<DropdownMenu.Content align="end">
 													<DropdownMenu.Group>
-														<DropdownMenu.GroupHeading>
-															Actions
-														</DropdownMenu.GroupHeading>
+														<DropdownMenu.GroupHeading>Actions</DropdownMenu.GroupHeading>
 														<DropdownMenu.Item>Edit</DropdownMenu.Item>
-														<DropdownMenu.Item>Delete</DropdownMenu.Item
-														>
+														<DropdownMenu.Item>Delete</DropdownMenu.Item>
 													</DropdownMenu.Group>
 												</DropdownMenu.Content>
 											</DropdownMenu.Root>
@@ -539,27 +469,18 @@
 												width="64"
 											/>
 										</Table.Cell>
-										<Table.Cell class="font-medium">
-											Gamer Gear Pro Controller
-										</Table.Cell>
+										<Table.Cell class="font-medium">Gamer Gear Pro Controller</Table.Cell>
 										<Table.Cell>
 											<Badge variant="outline">Active</Badge>
 										</Table.Cell>
 										<Table.Cell>$59.99</Table.Cell>
 										<Table.Cell class="hidden md:table-cell">75</Table.Cell>
-										<Table.Cell class="hidden md:table-cell">
-											2024-01-01 12:00 AM
-										</Table.Cell>
+										<Table.Cell class="hidden md:table-cell">2024-01-01 12:00 AM</Table.Cell>
 										<Table.Cell>
 											<DropdownMenu.Root>
 												<DropdownMenu.Trigger>
 													{#snippet child({ props })}
-														<Button
-															{...props}
-															aria-haspopup="true"
-															size="icon"
-															variant="ghost"
-														>
+														<Button {...props} aria-haspopup="true" size="icon" variant="ghost">
 															<Ellipsis class="size-4" />
 															<span class="sr-only">Toggle menu</span>
 														</Button>
@@ -567,12 +488,9 @@
 												</DropdownMenu.Trigger>
 												<DropdownMenu.Content align="end">
 													<DropdownMenu.Group>
-														<DropdownMenu.GroupHeading>
-															Actions
-														</DropdownMenu.GroupHeading>
+														<DropdownMenu.GroupHeading>Actions</DropdownMenu.GroupHeading>
 														<DropdownMenu.Item>Edit</DropdownMenu.Item>
-														<DropdownMenu.Item>Delete</DropdownMenu.Item
-														>
+														<DropdownMenu.Item>Delete</DropdownMenu.Item>
 													</DropdownMenu.Group>
 												</DropdownMenu.Content>
 											</DropdownMenu.Root>
@@ -588,27 +506,18 @@
 												width="64"
 											/>
 										</Table.Cell>
-										<Table.Cell class="font-medium">
-											Luminous VR Headset
-										</Table.Cell>
+										<Table.Cell class="font-medium">Luminous VR Headset</Table.Cell>
 										<Table.Cell>
 											<Badge variant="outline">Active</Badge>
 										</Table.Cell>
 										<Table.Cell>$199.99</Table.Cell>
 										<Table.Cell class="hidden md:table-cell">30</Table.Cell>
-										<Table.Cell class="hidden md:table-cell">
-											2024-02-14 02:14 PM
-										</Table.Cell>
+										<Table.Cell class="hidden md:table-cell">2024-02-14 02:14 PM</Table.Cell>
 										<Table.Cell>
 											<DropdownMenu.Root>
 												<DropdownMenu.Trigger>
 													{#snippet child({ props })}
-														<Button
-															{...props}
-															aria-haspopup="true"
-															size="icon"
-															variant="ghost"
-														>
+														<Button {...props} aria-haspopup="true" size="icon" variant="ghost">
 															<Ellipsis class="size-4" />
 															<span class="sr-only">Toggle menu</span>
 														</Button>
@@ -616,12 +525,9 @@
 												</DropdownMenu.Trigger>
 												<DropdownMenu.Content align="end">
 													<DropdownMenu.Group>
-														<DropdownMenu.GroupHeading>
-															Actions
-														</DropdownMenu.GroupHeading>
+														<DropdownMenu.GroupHeading>Actions</DropdownMenu.GroupHeading>
 														<DropdownMenu.Item>Edit</DropdownMenu.Item>
-														<DropdownMenu.Item>Delete</DropdownMenu.Item
-														>
+														<DropdownMenu.Item>Delete</DropdownMenu.Item>
 													</DropdownMenu.Group>
 												</DropdownMenu.Content>
 											</DropdownMenu.Root>

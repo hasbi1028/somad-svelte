@@ -1,15 +1,15 @@
 <script lang="ts">
-	import CircleUser from "lucide-svelte/icons/circle-user";
-	import Menu from "lucide-svelte/icons/menu";
-	import Package2 from "lucide-svelte/icons/package-2";
-	import Search from "lucide-svelte/icons/search";
+	import CircleUser from 'lucide-svelte/icons/circle-user';
+	import Menu from 'lucide-svelte/icons/menu';
+	import Package2 from 'lucide-svelte/icons/package-2';
+	import Search from 'lucide-svelte/icons/search';
 
-	import { Button } from "$lib/components/ui/button/index.js";
-	import * as Card from "$lib/components/ui/card/index.js";
-	import { Checkbox } from "$lib/components/ui/checkbox/index.js";
-	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-	import { Input } from "$lib/components/ui/input/index.js";
-	import * as Sheet from "$lib/components/ui/sheet/index.js";
+	import { Button } from '$lib/components/ui/button/index.js';
+	import * as Card from '$lib/components/ui/card/index.js';
+	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
 </script>
 
 <div class="flex min-h-screen w-full flex-col">
@@ -33,9 +33,7 @@
 			<a href="##" class="text-muted-foreground hover:text-foreground transition-colors">
 				Customers
 			</a>
-			<a href="##" class="text-foreground hover:text-foreground transition-colors">
-				Settings
-			</a>
+			<a href="##" class="text-foreground hover:text-foreground transition-colors"> Settings </a>
 		</nav>
 		<Sheet.Root>
 			<Sheet.Trigger>
@@ -122,9 +120,7 @@
 				>
 					<Card.Header>
 						<Card.Title>Store Name</Card.Title>
-						<Card.Description>
-							Used to identify your store in the marketplace.
-						</Card.Description>
+						<Card.Description>Used to identify your store in the marketplace.</Card.Description>
 					</Card.Header>
 					<Card.Content>
 						<form>

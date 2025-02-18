@@ -1,5 +1,5 @@
-import { goto, invalidateAll } from "$app/navigation";
-import PocketBase from "pocketbase";
+import { goto, invalidateAll } from '$app/navigation';
+import PocketBase from 'pocketbase';
 
 export const pb = new PocketBase(import.meta.env.VITE_PB_URL);
 let pbUserState = $state(pb.authStore.record);
@@ -8,15 +8,15 @@ let pbUserState = $state(pb.authStore.record);
 pb.autoCancellation(false);
 
 export function getPbUser() {
-  return pbUserState;
+	return pbUserState;
 }
 
 pb.authStore.onChange(() => {
-  pbUserState = pb.authStore.record;
+	pbUserState = pb.authStore.record;
 }, true);
 
 export async function logout() {
-  pb.authStore.clear();
-  await invalidateAll();
-  goto('/login/?message="logged out"');
+	pb.authStore.clear();
+	await invalidateAll();
+	goto('/login/?message="logged out"');
 }

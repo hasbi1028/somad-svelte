@@ -1,11 +1,11 @@
 <script lang="ts">
-	import * as Collapsible from "$lib/components/ui/collapsible/index.js";
-	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-	import ChevronRight from "lucide-svelte/icons/chevron-right";
+	import * as Collapsible from '$lib/components/ui/collapsible/index.js';
+	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import ChevronRight from 'lucide-svelte/icons/chevron-right';
 	import { House } from 'lucide-svelte';
 
 	let {
-		items,
+		items
 	}: {
 		items: {
 			title: string;

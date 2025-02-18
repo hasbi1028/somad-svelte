@@ -2,8 +2,8 @@
 	import '../app.css';
 	import { goto } from '$app/navigation';
 	import { pb } from '$lib/pocketbase.svelte';
-	import { ModeWatcher } from "mode-watcher";
-	import { Toaster } from "$lib/components/ui/sonner/index.js";
+	import { ModeWatcher } from 'mode-watcher';
+	import { Toaster } from '$lib/components/ui/sonner/index.js';
 
 	let { children } = $props();
 

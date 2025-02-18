@@ -1,6 +1,6 @@
 <script lang="ts" module>
-	import AudioWaveform from "lucide-svelte/icons/audio-waveform";
-	import BookOpen from "lucide-svelte/icons/book-open";
+	import AudioWaveform from 'lucide-svelte/icons/audio-waveform';
+	import BookOpen from 'lucide-svelte/icons/book-open';
 	import { Contact, NotebookPen } from 'lucide-svelte';
 	import { BookUser } from 'lucide-svelte';
 	import { Users } from 'lucide-svelte';
@@ -8,70 +8,70 @@
 	// This is sample data.
 	const data = {
 		user: {
-			name: "mtsn2kolut",
-			email: "mtsn.pakue@gmail.com",
-			avatar: "/favicon.png",
+			name: 'mtsn2kolut',
+			email: 'mtsn.pakue@gmail.com',
+			avatar: '/favicon.png'
 		},
-		
+
 		navMain: [
 			{
-				title: "Kesiswaan",
-				url: "#",
+				title: 'Kesiswaan',
+				url: '#',
 				icon: BookUser,
 				isActive: false,
 				items: [
 					{
-						title: "Daftar Siswa",
-						url: "/dashboard/student",
+						title: 'Daftar Siswa',
+						url: '/dashboard/student'
 					},
 					{
-						title: "Mutasi",
-						url: "#",
+						title: 'Mutasi',
+						url: '#'
 					},
 					{
-						title: "Akademik",
-						url: "#",
+						title: 'Akademik',
+						url: '#'
 					},
 					{
-						title: "Daftar PIP",
-						url: "#",
-					},
-				],
+						title: 'Daftar PIP',
+						url: '#'
+					}
+				]
 			},
 			{
-				title: "Guru dan Tendik",
-				url: "#",
+				title: 'Guru dan Tendik',
+				url: '#',
 				icon: Contact,
 				items: [
 					{
-						title: "Daftar GTK",
-						url: "#",
+						title: 'Daftar GTK',
+						url: '#'
 					},
 					{
-						title: "Mutasi",
-						url: "#",
+						title: 'Mutasi',
+						url: '#'
 					},
 					{
-						title: "Pengajuan GTK",
-						url: "#",
-					},
-				],
+						title: 'Pengajuan GTK',
+						url: '#'
+					}
+				]
 			},
 			{
-				title: "Akademik",
-				url: "#",
+				title: 'Akademik',
+				url: '#',
 				icon: BookOpen,
 				items: [
 					{
-						title: "Rombongan Belajar",
-						url: "#",
+						title: 'Rombongan Belajar',
+						url: '#'
 					},
 					{
-						title: "Rapor Online",
-						url: "#",
-					},
-				],
-			},
+						title: 'Rapor Online',
+						url: '#'
+					}
+				]
+			}
 			// {
 			// 	title: "Settings",
 			// 	url: "#",
@@ -98,37 +98,36 @@
 		],
 		projects: [
 			{
-				name: "Absensi",
-				url: "/dashboard/attendances",
-				icon: NotebookPen,
+				name: 'Absensi',
+				url: '/dashboard/attendances',
+				icon: NotebookPen
 			},
 			{
-				name: "Data User",
-				url: "/dashboard/user",
-				icon: Users,
-			},
-		],
+				name: 'Data User',
+				url: '/dashboard/user',
+				icon: Users
+			}
+		]
 	};
 </script>
 
 <script lang="ts">
-	import NavMain from "$lib/components/nav-main.svelte";
-	import NavProjects from "$lib/components/nav-projects.svelte";
-	import NavUser from "$lib/components/nav-user.svelte";
-	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-	import type { ComponentProps } from "svelte";
+	import NavMain from '$lib/components/nav-main.svelte';
+	import NavProjects from '$lib/components/nav-projects.svelte';
+	import NavUser from '$lib/components/nav-user.svelte';
+	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import type { ComponentProps } from 'svelte';
 
 	let {
 		ref = $bindable(null),
-		collapsible = "icon",
+		collapsible = 'icon',
 		...restProps
 	}: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
 
 <Sidebar.Root bind:ref {collapsible} {...restProps}>
-	<Sidebar.Header
-	>
-		<img src="/favicon.png" alt="logo" class="h-20 w-20 m-2 self-center " />
+	<Sidebar.Header>
+		<img src="/favicon.png" alt="logo" class="h-20 w-20 m-2 self-center" />
 		<!-- svelte-ignore a11y_distracting_elements -->
 		<marquee class="text-sm self-center">Made by Hasbi Awal</marquee>
 	</Sidebar.Header>

@@ -1,7 +1,6 @@
 <script>
-    import { logout } from "$lib/pocketbase.svelte";
-    import { goto } from "$app/navigation";
+	import { logout } from '$lib/pocketbase.svelte';
+	import { goto } from '$app/navigation';
 
-    logout();
+	logout();
 </script>
-

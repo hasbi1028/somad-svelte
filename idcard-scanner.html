@@ -1,276 +1,273 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scanner Kartu Identitas MTs Negeri 2 Kolaka Utara</title>
-    <script src="https://unpkg.com/html5-qrcode"></script>
-    <style>
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #f0f8f0;
-      }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Scanner Kartu Identitas MTs Negeri 2 Kolaka Utara</title>
+		<script src="https://unpkg.com/html5-qrcode"></script>
+		<style>
+			body {
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				margin: 0;
+				padding: 20px;
+				background-color: #f0f8f0;
+			}
 
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        text-align: center;
-      }
+			.container {
+				max-width: 800px;
+				margin: 0 auto;
+				text-align: center;
+			}
 
-      h1 {
-        color: #1a237e;
-        margin-bottom: 20px;
-      }
+			h1 {
+				color: #1a237e;
+				margin-bottom: 20px;
+			}
 
-      #reader {
-        width: 100%;
-        max-width: 600px;
-        margin: 0 auto;
-      }
+			#reader {
+				width: 100%;
+				max-width: 600px;
+				margin: 0 auto;
+			}
 
-      #result {
-        margin-top: 20px;
-        padding: 15px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
+			#result {
+				margin-top: 20px;
+				padding: 15px;
+				background-color: white;
+				border-radius: 8px;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			}
 
-      .scan-result {
-        margin: 10px 0;
-        padding: 10px;
-        border-radius: 4px;
-      }
+			.scan-result {
+				margin: 10px 0;
+				padding: 10px;
+				border-radius: 4px;
+			}
 
-      .success {
-        background-color: #e8f5e9;
-        color: #2e7d32;
-      }
+			.success {
+				background-color: #e8f5e9;
+				color: #2e7d32;
+			}
 
-      .error {
-        background-color: #ffebee;
-        color: #c62828;
-      }
+			.error {
+				background-color: #ffebee;
+				color: #c62828;
+			}
 
-      .log-container {
-        margin-top: 20px;
-        max-height: 200px;
-        overflow-y: auto;
-        padding: 10px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
+			.log-container {
+				margin-top: 20px;
+				max-height: 200px;
+				overflow-y: auto;
+				padding: 10px;
+				background-color: white;
+				border-radius: 8px;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			}
 
-      .log-entry {
-        padding: 5px;
-        border-bottom: 1px solid #eee;
-        text-align: left;
-      }
+			.log-entry {
+				padding: 5px;
+				border-bottom: 1px solid #eee;
+				text-align: left;
+			}
 
-      .staff-list {
-        margin-top: 20px;
-        padding: 15px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        text-align: left;
-      }
+			.staff-list {
+				margin-top: 20px;
+				padding: 15px;
+				background-color: white;
+				border-radius: 8px;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+				text-align: left;
+			}
 
-      .staff-item {
-        padding: 8px;
-        border-bottom: 1px solid #eee;
-      }
+			.staff-item {
+				padding: 8px;
+				border-bottom: 1px solid #eee;
+			}
 
-      .staff-item:last-child {
-        border-bottom: none;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Scanner Kartu Identitas MTs Negeri 2 Kolaka Utara</h1>
-      <div id="reader"></div>
-      <div id="result"></div>
-      <div class="log-container" id="log"></div>
-      <div class="staff-list">
-        <h2>Daftar Staff untuk Testing</h2>
-        <div id="staff-list"></div>
-      </div>
-    </div>
+			.staff-item:last-child {
+				border-bottom: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Scanner Kartu Identitas MTs Negeri 2 Kolaka Utara</h1>
+			<div id="reader"></div>
+			<div id="result"></div>
+			<div class="log-container" id="log"></div>
+			<div class="staff-list">
+				<h2>Daftar Staff untuk Testing</h2>
+				<div id="staff-list"></div>
+			</div>
+		</div>
 
-    <script>
-      const staffDatabase = [
-        {
-          name: "Drs. H. Abdul Karim, M.Pd",
-          position: "Kepala Madrasah",
-          nip: "196507151990031002",
-        },
-        {
-          name: "Hj. Nurhayati, S.Pd",
-          position: "Wakil Kepala Madrasah",
-          nip: "197603222005012004",
-        },
-        {
-          name: "Ahmad Fauzi, S.Pd",
-          position: "Wali Kelas IX.A",
-          nip: "198505172010011008",
-        },
-        {
-          name: "Siti Aminah, S.Pd",
-          position: "Guru BK",
-          nip: "198909122015012006",
-        },
-        {
-          name: "Muhammad Rizki, S.E",
-          position: "Staff Tata Usaha",
-          nip: "199203152018011005",
-        },
-      ];
+		<script>
+			const staffDatabase = [
+				{
+					name: 'Drs. H. Abdul Karim, M.Pd',
+					position: 'Kepala Madrasah',
+					nip: '196507151990031002'
+				},
+				{
+					name: 'Hj. Nurhayati, S.Pd',
+					position: 'Wakil Kepala Madrasah',
+					nip: '197603222005012004'
+				},
+				{
+					name: 'Ahmad Fauzi, S.Pd',
+					position: 'Wali Kelas IX.A',
+					nip: '198505172010011008'
+				},
+				{
+					name: 'Siti Aminah, S.Pd',
+					position: 'Guru BK',
+					nip: '198909122015012006'
+				},
+				{
+					name: 'Muhammad Rizki, S.E',
+					position: 'Staff Tata Usaha',
+					nip: '199203152018011005'
+				}
+			];
 
-      class AttendanceScanner {
-        constructor() {
-          this.html5QrcodeScanner = new Html5QrcodeScanner("reader", {
-            fps: 10,
-            qrbox: 250,
-          });
-          this.lastScan = {};
-          this.scanCooldown = 5000;
-          this.setupScanner();
-          this.setupSpeech();
-          this.displayStaffList();
-        }
+			class AttendanceScanner {
+				constructor() {
+					this.html5QrcodeScanner = new Html5QrcodeScanner('reader', {
+						fps: 10,
+						qrbox: 250
+					});
+					this.lastScan = {};
+					this.scanCooldown = 5000;
+					this.setupScanner();
+					this.setupSpeech();
+					this.displayStaffList();
+				}
 
-        setupSpeech() {
-          this.synth = window.speechSynthesis;
-          this.utterance = new SpeechSynthesisUtterance();
-          this.utterance.lang = "id-ID";
-          this.utterance.rate = 1;
-          this.utterance.pitch = 1;
-        }
+				setupSpeech() {
+					this.synth = window.speechSynthesis;
+					this.utterance = new SpeechSynthesisUtterance();
+					this.utterance.lang = 'id-ID';
+					this.utterance.rate = 1;
+					this.utterance.pitch = 1;
+				}
 
-        speak(text) {
-          this.utterance.text = text;
-          this.synth.speak(this.utterance);
-        }
+				speak(text) {
+					this.utterance.text = text;
+					this.synth.speak(this.utterance);
+				}
 
-        displayStaffList() {
-          const staffListContainer = document.getElementById("staff-list");
-          staffDatabase.forEach((staff) => {
-            const staffElement = document.createElement("div");
-            staffElement.className = "staff-item";
-            staffElement.innerHTML = `
+				displayStaffList() {
+					const staffListContainer = document.getElementById('staff-list');
+					staffDatabase.forEach((staff) => {
+						const staffElement = document.createElement('div');
+						staffElement.className = 'staff-item';
+						staffElement.innerHTML = `
                         <strong>${staff.name}</strong><br>
                         ${staff.position}<br>
                         NIP: ${staff.nip}<br>
                         QR Code Data: NIP:${staff.nip},NAMA:${staff.name},JABATAN:${staff.position}
                     `;
-            staffListContainer.appendChild(staffElement);
-          });
-        }
+						staffListContainer.appendChild(staffElement);
+					});
+				}
 
-        validateStaffMember(nip) {
-          return staffDatabase.find((staff) => staff.nip === nip);
-        }
+				validateStaffMember(nip) {
+					return staffDatabase.find((staff) => staff.nip === nip);
+				}
 
-        parseQRData(data) {
-          try {
-            const pairs = data.split(",");
-            const result = {};
-            pairs.forEach((pair) => {
-              const [key, value] = pair.split(":");
-              result[key] = value;
-            });
-            return result;
-          } catch (error) {
-            return null;
-          }
-        }
+				parseQRData(data) {
+					try {
+						const pairs = data.split(',');
+						const result = {};
+						pairs.forEach((pair) => {
+							const [key, value] = pair.split(':');
+							result[key] = value;
+						});
+						return result;
+					} catch (error) {
+						return null;
+					}
+				}
 
-        getTimeString() {
-          return new Date().toLocaleTimeString("id-ID");
-        }
+				getTimeString() {
+					return new Date().toLocaleTimeString('id-ID');
+				}
 
-        getDateString() {
-          return new Date().toLocaleDateString("id-ID");
-        }
+				getDateString() {
+					return new Date().toLocaleDateString('id-ID');
+				}
 
-        addLogEntry(text) {
-          const logContainer = document.getElementById("log");
-          const entry = document.createElement("div");
-          entry.className = "log-entry";
-          entry.textContent = `${this.getTimeString()} - ${text}`;
-          logContainer.insertBefore(entry, logContainer.firstChild);
-        }
+				addLogEntry(text) {
+					const logContainer = document.getElementById('log');
+					const entry = document.createElement('div');
+					entry.className = 'log-entry';
+					entry.textContent = `${this.getTimeString()} - ${text}`;
+					logContainer.insertBefore(entry, logContainer.firstChild);
+				}
 
-        determineAttendanceType() {
-          const hour = new Date().getHours();
-          return hour < 12 ? "masuk" : "pulang";
-        }
+				determineAttendanceType() {
+					const hour = new Date().getHours();
+					return hour < 12 ? 'masuk' : 'pulang';
+				}
 
-        handleScan(decodedText) {
-          const data = this.parseQRData(decodedText);
-          if (!data || !data.NIP) {
-            this.addLogEntry("QR Code tidak valid");
-            return;
-          }
+				handleScan(decodedText) {
+					const data = this.parseQRData(decodedText);
+					if (!data || !data.NIP) {
+						this.addLogEntry('QR Code tidak valid');
+						return;
+					}
 
-          const staffMember = this.validateStaffMember(data.NIP);
-          if (!staffMember) {
-            this.addLogEntry("Staff tidak terdaftar dalam database");
-            return;
-          }
+					const staffMember = this.validateStaffMember(data.NIP);
+					if (!staffMember) {
+						this.addLogEntry('Staff tidak terdaftar dalam database');
+						return;
+					}
 
-          const now = Date.now();
-          if (
-            this.lastScan[data.NIP] &&
-            now - this.lastScan[data.NIP] < this.scanCooldown
-          ) {
-            return;
-          }
-          this.lastScan[data.NIP] = now;
+					const now = Date.now();
+					if (this.lastScan[data.NIP] && now - this.lastScan[data.NIP] < this.scanCooldown) {
+						return;
+					}
+					this.lastScan[data.NIP] = now;
 
-          const attendanceType = this.determineAttendanceType();
-          let message;
+					const attendanceType = this.determineAttendanceType();
+					let message;
 
-          if (attendanceType === "masuk") {
-            message = `Selamat datang ${staffMember.name}, ${staffMember.position}`;
-          } else {
-            message = `Selamat jumpa besok ${staffMember.name}, ${staffMember.position}`;
-          }
+					if (attendanceType === 'masuk') {
+						message = `Selamat datang ${staffMember.name}, ${staffMember.position}`;
+					} else {
+						message = `Selamat jumpa besok ${staffMember.name}, ${staffMember.position}`;
+					}
 
-          this.speak(message);
-          this.addLogEntry(
-            `${attendanceType.toUpperCase()} - ${staffMember.name} (${staffMember.position})`,
-          );
+					this.speak(message);
+					this.addLogEntry(
+						`${attendanceType.toUpperCase()} - ${staffMember.name} (${staffMember.position})`
+					);
 
-          const resultElement = document.getElementById("result");
-          resultElement.innerHTML = `
+					const resultElement = document.getElementById('result');
+					resultElement.innerHTML = `
                     <div class="scan-result success">
                         <strong>${message}</strong><br>
                         Waktu: ${this.getTimeString()}<br>
                         Tanggal: ${this.getDateString()}
                     </div>
                 `;
-        }
+				}
 
-        setupScanner() {
-          this.html5QrcodeScanner.render(
-            (decodedText) => {
-              this.handleScan(decodedText);
-            },
-            (error) => {
-              // Handle errors silently
-            },
-          );
-        }
-      }
+				setupScanner() {
+					this.html5QrcodeScanner.render(
+						(decodedText) => {
+							this.handleScan(decodedText);
+						},
+						(error) => {
+							// Handle errors silently
+						}
+					);
+				}
+			}
 
-      window.onload = () => {
-        new AttendanceScanner();
-      };
-    </script>
-  </body>
+			window.onload = () => {
+				new AttendanceScanner();
+			};
+		</script>
+	</body>
 </html>

@@ -1,22 +1,22 @@
 <script lang="ts">
-	import Activity from "lucide-svelte/icons/activity";
-	import ArrowUpRight from "lucide-svelte/icons/arrow-up-right";
-	import CircleUser from "lucide-svelte/icons/circle-user";
-	import CreditCard from "lucide-svelte/icons/credit-card";
-	import DollarSign from "lucide-svelte/icons/dollar-sign";
-	import Menu from "lucide-svelte/icons/menu";
-	import Package2 from "lucide-svelte/icons/package-2";
-	import Search from "lucide-svelte/icons/search";
-	import Users from "lucide-svelte/icons/users";
+	import Activity from 'lucide-svelte/icons/activity';
+	import ArrowUpRight from 'lucide-svelte/icons/arrow-up-right';
+	import CircleUser from 'lucide-svelte/icons/circle-user';
+	import CreditCard from 'lucide-svelte/icons/credit-card';
+	import DollarSign from 'lucide-svelte/icons/dollar-sign';
+	import Menu from 'lucide-svelte/icons/menu';
+	import Package2 from 'lucide-svelte/icons/package-2';
+	import Search from 'lucide-svelte/icons/search';
+	import Users from 'lucide-svelte/icons/users';
 
-	import * as Avatar from "$lib/components/ui/avatar/index.js";
-	import { Badge } from "$lib/components/ui/badge/index.js";
-	import { Button } from "$lib/components/ui/button/index.js";
-	import * as Card from "$lib/components/ui/card/index.js";
-	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-	import { Input } from "$lib/components/ui/input/index.js";
-	import * as Sheet from "$lib/components/ui/sheet/index.js";
-	import * as Table from "$lib/components/ui/table/index.js";
+	import * as Avatar from '$lib/components/ui/avatar/index.js';
+	import { Badge } from '$lib/components/ui/badge/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import * as Card from '$lib/components/ui/card/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
+	import * as Table from '$lib/components/ui/table/index.js';
 </script>
 
 <div class="flex min-h-screen w-full flex-col">
@@ -28,9 +28,7 @@
 				<Package2 class="size-6" />
 				<span class="sr-only">Acme Inc</span>
 			</a>
-			<a href="##" class="text-foreground hover:text-foreground transition-colors">
-				Dashboard
-			</a>
+			<a href="##" class="text-foreground hover:text-foreground transition-colors"> Dashboard </a>
 			<a href="##" class="text-muted-foreground hover:text-foreground transition-colors">
 				Orders
 			</a>
@@ -186,17 +184,13 @@
 							<Table.Row>
 								<Table.Cell>
 									<div class="font-medium">Liam Johnson</div>
-									<div class="text-muted-foreground hidden text-sm md:inline">
-										liam@example.com
-									</div>
+									<div class="text-muted-foreground hidden text-sm md:inline">liam@example.com</div>
 								</Table.Cell>
 								<Table.Cell class="xl:table.-column hidden">Sale</Table.Cell>
 								<Table.Cell class="xl:table.-column hidden">
 									<Badge class="text-xs" variant="outline">Approved</Badge>
 								</Table.Cell>
-								<Table.Cell
-									class="md:table.-cell xl:table.-column hidden lg:hidden"
-								>
+								<Table.Cell class="md:table.-cell xl:table.-column hidden lg:hidden">
 									2023-06-23
 								</Table.Cell>
 								<Table.Cell class="text-right">$250.00</Table.Cell>
@@ -212,9 +206,7 @@
 								<Table.Cell class="xl:table.-column hidden">
 									<Badge class="text-xs" variant="outline">Declined</Badge>
 								</Table.Cell>
-								<Table.Cell
-									class="md:table.-cell xl:table.-column hidden lg:hidden"
-								>
+								<Table.Cell class="md:table.-cell xl:table.-column hidden lg:hidden">
 									2023-06-24
 								</Table.Cell>
 								<Table.Cell class="text-right">$150.00</Table.Cell>
@@ -222,19 +214,13 @@
 							<Table.Row>
 								<Table.Cell>
 									<div class="font-medium">Noah Williams</div>
-									<div class="text-muted-foreground hidden text-sm md:inline">
-										noah@example.com
-									</div>
+									<div class="text-muted-foreground hidden text-sm md:inline">noah@example.com</div>
 								</Table.Cell>
-								<Table.Cell class="xl:table.-column hidden">
-									Subscription
-								</Table.Cell>
+								<Table.Cell class="xl:table.-column hidden">Subscription</Table.Cell>
 								<Table.Cell class="xl:table.-column hidden">
 									<Badge class="text-xs" variant="outline">Approved</Badge>
 								</Table.Cell>
-								<Table.Cell
-									class="md:table.-cell xl:table.-column hidden lg:hidden"
-								>
+								<Table.Cell class="md:table.-cell xl:table.-column hidden lg:hidden">
 									2023-06-25
 								</Table.Cell>
 								<Table.Cell class="text-right">$350.00</Table.Cell>
@@ -242,17 +228,13 @@
 							<Table.Row>
 								<Table.Cell>
 									<div class="font-medium">Emma Brown</div>
-									<div class="text-muted-foreground hidden text-sm md:inline">
-										emma@example.com
-									</div>
+									<div class="text-muted-foreground hidden text-sm md:inline">emma@example.com</div>
 								</Table.Cell>
 								<Table.Cell class="xl:table.-column hidden">Sale</Table.Cell>
 								<Table.Cell class="xl:table.-column hidden">
 									<Badge class="text-xs" variant="outline">Approved</Badge>
 								</Table.Cell>
-								<Table.Cell
-									class="md:table.-cell xl:table.-column hidden lg:hidden"
-								>
+								<Table.Cell class="md:table.-cell xl:table.-column hidden lg:hidden">
 									2023-06-26
 								</Table.Cell>
 								<Table.Cell class="text-right">$450.00</Table.Cell>
@@ -260,17 +242,13 @@
 							<Table.Row>
 								<Table.Cell>
 									<div class="font-medium">Liam Johnson</div>
-									<div class="text-muted-foreground hidden text-sm md:inline">
-										liam@example.com
-									</div>
+									<div class="text-muted-foreground hidden text-sm md:inline">liam@example.com</div>
 								</Table.Cell>
 								<Table.Cell class="xl:table.-column hidden">Sale</Table.Cell>
 								<Table.Cell class="xl:table.-column hidden">
 									<Badge class="text-xs" variant="outline">Approved</Badge>
 								</Table.Cell>
-								<Table.Cell
-									class="md:table.-cell xl:table.-column hidden lg:hidden"
-								>
+								<Table.Cell class="md:table.-cell xl:table.-column hidden lg:hidden">
 									2023-06-27
 								</Table.Cell>
 								<Table.Cell class="text-right">$550.00</Table.Cell>

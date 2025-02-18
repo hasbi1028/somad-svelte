@@ -1,34 +1,34 @@
 <script lang="ts">
-	import ChevronLeft from "lucide-svelte/icons/chevron-left";
-	import House from "lucide-svelte/icons/house";
-	import ChartLine from "lucide-svelte/icons/chart-line";
-	import Package from "lucide-svelte/icons/package";
-	import Package2 from "lucide-svelte/icons/package-2";
-	import PanelLeft from "lucide-svelte/icons/panel-left";
-	import CirclePlus from "lucide-svelte/icons/circle-plus";
-	import Search from "lucide-svelte/icons/search";
-	import Settings from "lucide-svelte/icons/settings";
-	import ShoppingCart from "lucide-svelte/icons/shopping-cart";
-	import Upload from "lucide-svelte/icons/upload";
-	import UsersRound from "lucide-svelte/icons/users-round";
+	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
+	import House from 'lucide-svelte/icons/house';
+	import ChartLine from 'lucide-svelte/icons/chart-line';
+	import Package from 'lucide-svelte/icons/package';
+	import Package2 from 'lucide-svelte/icons/package-2';
+	import PanelLeft from 'lucide-svelte/icons/panel-left';
+	import CirclePlus from 'lucide-svelte/icons/circle-plus';
+	import Search from 'lucide-svelte/icons/search';
+	import Settings from 'lucide-svelte/icons/settings';
+	import ShoppingCart from 'lucide-svelte/icons/shopping-cart';
+	import Upload from 'lucide-svelte/icons/upload';
+	import UsersRound from 'lucide-svelte/icons/users-round';
 
-	import { Badge } from "$lib/components/ui/badge/index.js";
-	import * as Breadcrumb from "$lib/components/ui/breadcrumb/index.js";
-	import { Button } from "$lib/components/ui/button/index.js";
-	import * as Card from "$lib/components/ui/card/index.js";
-	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-	import { Input } from "$lib/components/ui/input/index.js";
-	import { Label } from "$lib/components/ui/label/index.js";
-	import * as Select from "$lib/components/ui/select/index.js";
-	import * as Sheet from "$lib/components/ui/sheet/index.js";
-	import * as Table from "$lib/components/ui/table/index.js";
-	import { Textarea } from "$lib/components/ui/textarea/index.js";
-	import * as ToggleGroup from "$lib/components/ui/toggle-group/index.js";
-	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+	import { Badge } from '$lib/components/ui/badge/index.js';
+	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import * as Card from '$lib/components/ui/card/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { Input } from '$lib/components/ui/input/index.js';
+	import { Label } from '$lib/components/ui/label/index.js';
+	import * as Select from '$lib/components/ui/select/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
+	import * as Table from '$lib/components/ui/table/index.js';
+	import { Textarea } from '$lib/components/ui/textarea/index.js';
+	import * as ToggleGroup from '$lib/components/ui/toggle-group/index.js';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 
-	let category = $state("");
-	let subCategory = $state("");
-	let status = $state("");
+	let category = $state('');
+	let subCategory = $state('');
+	let status = $state('');
 </script>
 
 <div class="bg-muted/40 flex min-h-screen w-full flex-col">
@@ -222,12 +222,7 @@
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
 					{#snippet child({ props })}
-						<Button
-							{...props}
-							size="icon"
-							variant="outline"
-							class="overflow-hidden rounded-full"
-						>
+						<Button {...props} size="icon" variant="outline" class="overflow-hidden rounded-full">
 							<img
 								src="/images/placeholder-user.jpg"
 								width={36}
@@ -284,12 +279,7 @@
 								<div class="grid gap-6">
 									<div class="grid gap-3">
 										<Label for="name">Name</Label>
-										<Input
-											id="name"
-											type="text"
-											class="w-full"
-											value="Gamer Gear Pro Controller"
-										/>
+										<Input id="name" type="text" class="w-full" value="Gamer Gear Pro Controller" />
 									</div>
 									<div class="grid gap-3">
 										<Label for="description">Description</Label>
@@ -334,11 +324,7 @@
 												<Input id="price-1" type="number" value="99.99" />
 											</Table.Cell>
 											<Table.Cell>
-												<ToggleGroup.Root
-													type="single"
-													value="s"
-													variant="outline"
-												>
+												<ToggleGroup.Root type="single" value="s" variant="outline">
 													<ToggleGroup.Item value="s">S</ToggleGroup.Item>
 													<ToggleGroup.Item value="m">M</ToggleGroup.Item>
 													<ToggleGroup.Item value="l">L</ToggleGroup.Item>
@@ -356,11 +342,7 @@
 												<Input id="price-2" type="number" value="99.99" />
 											</Table.Cell>
 											<Table.Cell>
-												<ToggleGroup.Root
-													type="single"
-													value="m"
-													variant="outline"
-												>
+												<ToggleGroup.Root type="single" value="m" variant="outline">
 													<ToggleGroup.Item value="s">S</ToggleGroup.Item>
 													<ToggleGroup.Item value="m">M</ToggleGroup.Item>
 													<ToggleGroup.Item value="l">L</ToggleGroup.Item>
@@ -378,11 +360,7 @@
 												<Input id="price-3" type="number" value="99.99" />
 											</Table.Cell>
 											<Table.Cell>
-												<ToggleGroup.Root
-													type="single"
-													value="s"
-													variant="outline"
-												>
+												<ToggleGroup.Root type="single" value="s" variant="outline">
 													<ToggleGroup.Item value="s">S</ToggleGroup.Item>
 													<ToggleGroup.Item value="m">M</ToggleGroup.Item>
 													<ToggleGroup.Item value="l">L</ToggleGroup.Item>
@@ -411,42 +389,26 @@
 									<div class="grid gap-3">
 										<Label for="category">Category</Label>
 										<Select.Root type="single" bind:value={category}>
-											<Select.Trigger
-												id="category"
-												aria-label="Select category"
-												class="capitalize"
-											>
-												{category ?? "Select category"}
+											<Select.Trigger id="category" aria-label="Select category" class="capitalize">
+												{category ?? 'Select category'}
 											</Select.Trigger>
 											<Select.Content>
 												<Select.Item value="clothing" label="Clothing" />
-												<Select.Item
-													value="electronics"
-													label="Electronics"
-												/>
-												<Select.Item
-													value="accessories"
-													label="Accessories"
-												/>
+												<Select.Item value="electronics" label="Electronics" />
+												<Select.Item value="accessories" label="Accessories" />
 											</Select.Content>
 										</Select.Root>
 									</div>
 									<div class="grid gap-3">
 										<Label for="subcategory">Subcategory (optional)</Label>
 										<Select.Root type="single" bind:value={subCategory}>
-											<Select.Trigger
-												id="subcategory"
-												aria-label="Select subcategory"
-											>
-												{subCategory ?? "Select subcategory"}
+											<Select.Trigger id="subcategory" aria-label="Select subcategory">
+												{subCategory ?? 'Select subcategory'}
 											</Select.Trigger>
 											<Select.Content>
 												<Select.Item value="t-shirts" label="T-Shirts" />
 												<Select.Item value="hoodies" label="Hoodies" />
-												<Select.Item
-													value="sweatshirts"
-													label="Sweatshirts"
-												/>
+												<Select.Item value="sweatshirts" label="Sweatshirts" />
 											</Select.Content>
 										</Select.Root>
 									</div>
@@ -467,12 +429,8 @@
 									<div class="grid gap-3">
 										<Label for="status">Status</Label>
 										<Select.Root type="single" bind:value={status}>
-											<Select.Trigger
-												id="status"
-												aria-label="Select status"
-												class="capitalize"
-											>
-												{status ?? "Select status"}
+											<Select.Trigger id="status" aria-label="Select status" class="capitalize">
+												{status ?? 'Select status'}
 											</Select.Trigger>
 											<Select.Content>
 												<Select.Item value="draft" label="Draft" />
