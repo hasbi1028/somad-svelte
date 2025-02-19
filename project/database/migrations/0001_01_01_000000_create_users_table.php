@@ -23,7 +23,7 @@ return new class extends Migration
     $table->enum('gender', ['Laki-laki', 'Perempuan'])->nullable();
     $table->string('phone_number')->nullable();
     $table->text('address')->nullable();
-    $table->enum('role', ['staff', 'student', 'employee', 'parent']);
+    $table->enum('role', ['staff', 'student', 'employee', 'parent'])->nullable()->default('staff');
     $table->char('position_id', 15)->nullable();
             $table->rememberToken();
             $table->timestamps();
