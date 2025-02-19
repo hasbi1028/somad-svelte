@@ -27,7 +27,7 @@
 					{
 						title: 'Cetak Kartu',
 						url: '/id-card/students'
-					},
+					}
 					// {
 					// 	title: 'Mutasi',
 					// 	url: '#'
@@ -58,7 +58,7 @@
 					{
 						title: 'Cetak Kartu',
 						url: '/id-card/employee'
-					},
+					}
 					// {
 					// 	title: 'Mutasi',
 					// 	url: '#'
@@ -95,8 +95,8 @@
 						url: '/subjects'
 					}
 				]
-			},
-			
+			}
+
 			// {
 			// 	title: "Settings",
 			// 	url: "#",
@@ -126,7 +126,7 @@
 				name: 'Absensi',
 				url: '/attendances',
 				icon: NotebookPen
-			},
+			}
 			// {
 			// 	name: 'Rombongan Belajar',
 			// 	url: '/classes',
@@ -150,7 +150,7 @@
 	}: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
 
-<Sidebar.Root  bind:ref {collapsible} {...restProps}>
+<Sidebar.Root bind:ref {collapsible} {...restProps}>
 	<!-- <Sidebar.Header>
 		<img src="/favicon.png" alt="logo" class="h-20 w-20 m-2 self-center" />
 		svelte-ignore a11y_distracting_elements

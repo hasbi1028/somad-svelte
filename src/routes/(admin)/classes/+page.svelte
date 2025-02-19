@@ -25,7 +25,7 @@
 	import ChevronLeft from 'lucide-svelte/icons/chevron-left';
 	import ChevronRight from 'lucide-svelte/icons/chevron-right';
 	import { MediaQuery } from 'svelte/reactivity';
-	import { ScrollArea } from "$lib/components/ui/scroll-area/index.js";
+	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
@@ -49,7 +49,7 @@
 	let currentPage = $state(1);
 	let count = $state(0);
 	// Variabel untuk status filter: "all", "active", "graduated", atau "dropped"
-	let selectedTab = $state("all");
+	let selectedTab = $state('all');
 
 	// Setiap kali selectedTab berubah, reset currentPage ke 1
 	$effect(() => {
@@ -67,10 +67,10 @@
 				filterParts.push(`user_id.full_name ~ "${searchTerm}"`);
 			}
 			// Jika tab bukan "all", tambahkan filter status
-			if (selectedTab !== "all") {
+			if (selectedTab !== 'all') {
 				filterParts.push(`status = "${selectedTab}"`);
 			}
-			const filterQuery = filterParts.join(" && ");
+			const filterQuery = filterParts.join(' && ');
 
 			// Ambil data sesuai halaman dan jumlah perPage menggunakan getList
 			const result = await pb.collection('students').getList(currentPage, perPage, {
@@ -105,8 +105,12 @@
 		<Sidebar.Trigger class="-ml-1" />
 		<Separator orientation="vertical" class="mr-2 h-4" />
 		<Button onclick={toggleMode} variant="outline" size="sm" class="mr-2">
-			<Sun class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-			<Moon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+			<Sun
+				class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+			/>
+			<Moon
+				class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+			/>
 			<span class="sr-only">Toggle theme</span>
 		</Button>
 		<Separator orientation="vertical" class="mr-2 h-4" />

@@ -11,10 +11,9 @@
 	}
 </script>
 
-<Sidebar.Provider >
+<Sidebar.Provider>
 	<AppSidebar class="print:hidden" />
-	<Sidebar.Inset >
+	<Sidebar.Inset>
 		{@render children()}
 	</Sidebar.Inset>
 </Sidebar.Provider>
-

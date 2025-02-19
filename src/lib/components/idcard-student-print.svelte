@@ -2,10 +2,12 @@
 	import { writable } from 'svelte/store';
 	import './print.css';
 	import QRCode from 'qrcode-generator';
+	import { pb } from '$lib/pocketbase.svelte';
 
-	// Interface untuk tipe data kartu siswa
+	// Interface untuk tipe data kartu siswa (ditambah field position)
 	interface StudentCard {
 		id: string;
+		nism: string;
 		nisn: string;
 		name: string;
 		class: string;
@@ -14,79 +16,15 @@
 		bloodType: string;
 		academicYear: string;
 		validThru: string;
+		position: string;
 	}
 
-	// Mock data
-	const mockData = {
-		firstNames: [
-			'Ahmad',
-			'Muhammad',
-			'Siti',
-			'Fatimah',
-			'Nur',
-			'Aisyah',
-			'Rizky',
-			'Fitri',
-			'Ali',
-			'Zahra'
-		],
-		lastNames: [
-			'Hidayat',
-			'Syaputra',
-			'Rahmawati',
-			'Pratiwi',
-			'Hasanah',
-			'Ramadhan',
-			'Arif',
-			'Fadillah',
-			'Saputra',
-			'Permata'
-		],
-		classes: ['VII A', 'VII B', 'VIII A', 'VIII B', 'IX A', 'IX B'],
-		addresses: [
-			'Desa Sulawi',
-			'Desa Ponggiha',
-			'Desa Samaturu',
-			'Desa Tojabi',
-			'Desa Korobomba',
-			'Desa Lapolu'
-		]
-	};
-
-	// State
-	let numCards = writable(5);
+	// Store untuk menyimpan data kartu siswa
 	let cards = writable<StudentCard[]>([]);
 
-	// Generate random student data
-	function generateRandomData(index: number): StudentCard {
-		const firstName = mockData.firstNames[Math.floor(Math.random() * mockData.firstNames.length)];
-		const lastName = mockData.lastNames[Math.floor(Math.random() * mockData.lastNames.length)];
-		const fullName = `${firstName} ${lastName}`;
-		const studentClass = mockData.classes[Math.floor(Math.random() * mockData.classes.length)];
-		const address = mockData.addresses[Math.floor(Math.random() * mockData.addresses.length)];
-
-		const currentYear = new Date().getFullYear().toString().substr(-2);
-		// Pastikan format ID selalu 4 digit
-		const idNumber = currentYear + (1000 + index).toString().substr(-4);
-		const nisn = '00' + (Math.floor(Math.random() * 90000000) + 10000000).toString();
-		const dob = `${10 + Math.floor(Math.random() * 20)}-${1 + Math.floor(Math.random() * 12)}-${2007 + Math.floor(Math.random() * 6)}`;
-
-		return {
-			id: idNumber,
-			nisn,
-			name: fullName,
-			class: studentClass,
-			address,
-			dob,
-			bloodType: ['A', 'B', 'AB', 'O'][Math.floor(Math.random() * 4)],
-			academicYear: '2024/2025',
-			validThru: '31 Juli 2025'
-		};
-	}
-
-	// Generate QR code menggunakan qrcode-generator
+	// Fungsi generate QR code menggunakan qrcode-generator
 	function generateQRCode(data: StudentCard): string {
-		const qrData = `ID:${data.id},NISN:${data.nisn},NAMA:${data.name},KELAS:${data.class}`;
+		const qrData = `NISM:${data.nism},NISN:${data.nisn},NAMA:${data.name},KELAS:${data.class}`;
 		const typeNumber = 4;
 		const errorCorrectionLevel = 'L';
 		const qr = QRCode(typeNumber, errorCorrectionLevel);
@@ -95,12 +33,55 @@
 		return qr.createSvgTag({ cellSize: 4, margin: 1 });
 	}
 
-	// Generate cards
-	function generateCards() {
-		const newCards = Array.from({ length: $numCards }, (_, i) => generateRandomData(i));
-		cards.set(newCards);
+	// Fungsi untuk mengambil data dari Pocketbase dan melakukan mapping
+	async function generateCards() {
+		try {
+			// Ambil data secara paralel dari koleksi yang berkaitan
+			const [students, users, classes, positions] = await Promise.all([
+				pb.collection('students').getFullList(),
+				pb.collection('users').getFullList(),
+				pb.collection('classes').getFullList(),
+				pb.collection('positions').getFullList()
+			]);
+
+			// Buat mapping untuk memudahkan pencarian berdasarkan id
+			const userMap = Object.fromEntries(users.map(u => [u.id, u]));
+			const classMap = Object.fromEntries(classes.map(c => [c.id, c]));
+			const positionMap = Object.fromEntries(positions.map(p => [p.id, p]));
+
+			const studentCards = students.map(s => {
+				// Cari data user dan class berdasarkan id
+				const user = userMap[s.user_id] || {};
+				const classData = classMap[s.class_id] || {};
+				// Ambil data posisi dari user jika ada (user.position_id)
+				const position:any = user.position_id ? positionMap[user.position_id] || {} : {};
+
+				// Contoh penghitungan academicYear dan validThru berdasarkan field entry_year
+				const academicYear = s.entry_year ? `${s.entry_year}/${Number(s.entry_year) + 1}` : '2024/2025';
+				const validThru = s.entry_year ? `31 Juli ${Number(s.entry_year) + 1}` : '31 Juli 2025';
+
+				return {
+					id: s.id,
+					nism: s.nism || '',
+					nisn: s.nisn || '',
+					name: user.full_name || '',
+					class: classData.name || '',
+					address: user.address || '',
+					dob: user.birth_date || '',
+					bloodType: user.blood_type || '',
+					academicYear,
+					validThru,
+					position: position.name || ''
+				};
+			});
+
+			cards.set(studentCards);
+		} catch (err) {
+			console.error('Error fetching cards:', err);
+		}
 	}
 
+	// Fungsi untuk mencetak ID Card
 	function handlePrint() {
 		window.print();
 	}
@@ -108,24 +89,22 @@
 
 <svelte:head>
 	<title>ID Card Generator MTs Negeri 2 Kolaka Utara</title>
-	<!-- Jika menggunakan qrcode-generator via npm, tidak perlu menyertakan script CDN -->
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script> -->
 </svelte:head>
 
 <main>
 	<h1>ID Card Generator MTs Negeri 2 Kolaka Utara</h1>
 
 	<div class="controls">
-		<label for="num-cards">Jumlah Kartu:</label>
-		<input type="number" id="num-cards" bind:value={$numCards} min="1" max="30" />
-		<button on:click={generateCards}>Buat Kartu</button>
+		<!-- Tombol untuk mengambil data dari Pocketbase dan melakukan mapping -->
+		<button on:click={generateCards}>Ambil Semua Kartu</button>
+		<!-- Tombol untuk mencetak semua kartu -->
 		<button on:click={handlePrint}>Cetak Kartu</button>
 	</div>
 
 	<div class="card-container">
 		{#each $cards as card (card.id)}
 			<div class="card-pair">
-				<!-- Front Card -->
+				<!-- Kartu Sisi Depan -->
 				<div class="id-card id-card-front rounded-lg">
 					<div class="header">
 						<div class="school-logo">
@@ -144,8 +123,8 @@
 
 						<div class="student-info">
 							<div class="info-row">
-								<div class="info-label">NIS:</div>
-								<div class="info-value">{card.id}</div>
+								<div class="info-label">NISM:</div>
+								<div class="info-value">{card.nism}</div>
 							</div>
 							<div class="info-row">
 								<div class="info-label">NISN:</div>
@@ -168,8 +147,12 @@
 								<div class="info-value">{card.address}</div>
 							</div>
 							<div class="info-row">
-								<div class="info-label">Golongan Darah:</div>
+								<div class="info-label">Gol.Darah:</div>
 								<div class="info-value">{card.bloodType}</div>
+							</div>
+							<div class="info-row">
+								<div class="info-label">Posisi:</div>
+								<div class="info-value">{card.position}</div>
 							</div>
 						</div>
 
@@ -181,7 +164,7 @@
 					<div class="watermark">MTs NEGERI 2 KOLAKA UTARA</div>
 				</div>
 
-				<!-- Back Card -->
+				<!-- Kartu Sisi Belakang -->
 				<div class="id-card id-card-back">
 					<div class="back-header">
 						<div class="back-title">KARTU PELAJAR</div>
@@ -223,15 +206,6 @@
 </main>
 
 <style>
-	/* Gabungkan style duplikat untuk body dan h1 */
-	/* :global(body) {
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 20px;
-		background-color: #f0f8f0;
-	} */
-
 	h1 {
 		color: #0a5c36;
 		text-align: center;
@@ -244,6 +218,7 @@
 		border-radius: 8px;
 		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 		margin-bottom: 30px;
+		text-align: center;
 	}
 
 	button {
@@ -260,13 +235,6 @@
 
 	button:hover {
 		background-color: #083e25;
-	}
-
-	input[type='number'] {
-		padding: 8px 12px;
-		width: 70px;
-		border: 1px solid #ccc;
-		border-radius: 4px;
 	}
 
 	.card-container {

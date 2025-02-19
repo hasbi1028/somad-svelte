@@ -1,1 +1,277 @@
-h1.svelte-wxs4ch{color:#0a5c36;text-align:center;margin-bottom:30px}.controls.svelte-wxs4ch{background-color:#fff;padding:15px;border-radius:8px;box-shadow:0 2px 10px #0000001a;margin-bottom:30px}button.svelte-wxs4ch{padding:10px 20px;background-color:#0a5c36;color:#fff;border:none;border-radius:4px;cursor:pointer;margin-right:10px;font-weight:500;transition:background-color .3s}button.svelte-wxs4ch:hover{background-color:#083e25}input[type=number].svelte-wxs4ch{padding:8px 12px;width:70px;border:1px solid #ccc;border-radius:4px}.card-container.svelte-wxs4ch{display:flex;flex-wrap:wrap;gap:30px;justify-content:center}.card-pair.svelte-wxs4ch{display:flex;flex-direction:column;gap:30px;margin-bottom:50px}.id-card.svelte-wxs4ch{width:400px;height:700px;position:relative;border-radius:12px;overflow:auto;box-shadow:0 6px 16px #00000026;box-sizing:border-box}.id-card-front.svelte-wxs4ch{background:#fff;display:flex;flex-direction:column;border:1px solid #ddd}.header.svelte-wxs4ch{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;padding:15px 20px;text-align:center}.school-logo.svelte-wxs4ch{width:80px;height:80px;background-color:#fff;border-radius:50%;padding:5px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center}.school-logo.svelte-wxs4ch img:where(.svelte-wxs4ch){width:70px;height:70px;-o-object-fit:contain;object-fit:contain}.school-name.svelte-wxs4ch{font-size:16px;font-weight:700;margin-bottom:5px}.school-address.svelte-wxs4ch{font-size:12px;opacity:.9}.card-body.svelte-wxs4ch{padding:20px;flex:1;display:flex;flex-direction:column}.photo-container.svelte-wxs4ch{width:125px;height:150px;border:2px solid #1a237e;margin:0 auto;overflow:hidden;display:flex;justify-content:center;align-items:center;background-color:#f5f5f5}.photo-container.svelte-wxs4ch img:where(.svelte-wxs4ch){width:100%;height:100%;-o-object-fit:cover;object-fit:cover}.position-title.svelte-wxs4ch{font-size:18px;font-weight:700;color:#1a237e;text-align:center;margin:10px 0;text-transform:uppercase}.student-info.svelte-wxs4ch{margin-top:20px;flex:1}.info-row.svelte-wxs4ch{display:flex;margin-bottom:8px;font-size:14px}.info-label.svelte-wxs4ch,.nip-label.svelte-wxs4ch{font-weight:600;width:100px;color:#1a237e}.info-value.svelte-wxs4ch{flex:1}.valid-period.svelte-wxs4ch{text-align:center;font-size:12px;color:#666;margin-top:15px;font-style:italic}.id-card-back.svelte-wxs4ch{background:linear-gradient(135deg,#f5f7fa,#e4f5e9);padding:20px;display:flex;flex-direction:column;border:1px solid #ddd}.back-header.svelte-wxs4ch{text-align:center;margin-bottom:20px}.back-title.svelte-wxs4ch{font-size:18px;font-weight:700;color:#1a237e;margin-bottom:5px}.back-subtitle.svelte-wxs4ch{font-size:14px;color:#555}.rules-container.svelte-wxs4ch{border:1px solid #ccc;border-radius:8px;padding:15px;background-color:#fff;margin-bottom:20px;flex:1}.rules-title.svelte-wxs4ch{text-align:center;font-weight:700;margin-bottom:10px;color:#1a237e}.rules-list.svelte-wxs4ch{font-size:12px;padding-left:25px}.rules-list.svelte-wxs4ch li:where(.svelte-wxs4ch){margin-bottom:6px}.qr-container.svelte-wxs4ch{text-align:center;margin-bottom:15px}.qr-title.svelte-wxs4ch{font-size:12px;margin-bottom:5px;color:#555}.qr-code.svelte-wxs4ch{width:120px;height:120px;margin:0 auto;display:flex;justify-content:center;align-items:center}.signature-container.svelte-wxs4ch{text-align:center}.signature-line.svelte-wxs4ch{width:150px;height:1px;background-color:#000;margin:40px auto 5px}.signature-name.svelte-wxs4ch{font-weight:700;font-size:12px}.signature-title.svelte-wxs4ch{font-size:11px;color:#555}.watermark.svelte-wxs4ch{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);font-size:36px;color:#0000000a;pointer-events:none;white-space:nowrap}@media print{.controls.svelte-wxs4ch,h1.svelte-wxs4ch{display:none}.card-container.svelte-wxs4ch{display:block;page-break-inside:avoid}.card-pair.svelte-wxs4ch{display:flex;flex-direction:row;justify-content:center;gap:20px;page-break-inside:avoid;page-break-after:always;margin-bottom:0;padding:20px 0}.id-card.svelte-wxs4ch{-moz-column-break-inside:avoid;break-inside:avoid;page-break-inside:avoid;box-shadow:none;width:400px;height:700px}.id-card-front.svelte-wxs4ch,.id-card-back.svelte-wxs4ch{border:1px solid #000!important}.header.svelte-wxs4ch{background:#1a237e!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.photo-container.svelte-wxs4ch{border:2px solid #000!important}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}
+h1.svelte-wxs4ch {
+	color: #0a5c36;
+	text-align: center;
+	margin-bottom: 30px;
+}
+.controls.svelte-wxs4ch {
+	background-color: #fff;
+	padding: 15px;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px #0000001a;
+	margin-bottom: 30px;
+}
+button.svelte-wxs4ch {
+	padding: 10px 20px;
+	background-color: #0a5c36;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 10px;
+	font-weight: 500;
+	transition: background-color 0.3s;
+}
+button.svelte-wxs4ch:hover {
+	background-color: #083e25;
+}
+input[type='number'].svelte-wxs4ch {
+	padding: 8px 12px;
+	width: 70px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.card-container.svelte-wxs4ch {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 30px;
+	justify-content: center;
+}
+.card-pair.svelte-wxs4ch {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	margin-bottom: 50px;
+}
+.id-card.svelte-wxs4ch {
+	width: 400px;
+	height: 700px;
+	position: relative;
+	border-radius: 12px;
+	overflow: auto;
+	box-shadow: 0 6px 16px #00000026;
+	box-sizing: border-box;
+}
+.id-card-front.svelte-wxs4ch {
+	background: #fff;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #ddd;
+}
+.header.svelte-wxs4ch {
+	background: linear-gradient(135deg, #1a237e, #283593);
+	color: #fff;
+	padding: 15px 20px;
+	text-align: center;
+}
+.school-logo.svelte-wxs4ch {
+	width: 80px;
+	height: 80px;
+	background-color: #fff;
+	border-radius: 50%;
+	padding: 5px;
+	margin: 0 auto 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.school-logo.svelte-wxs4ch img:where(.svelte-wxs4ch) {
+	width: 70px;
+	height: 70px;
+	-o-object-fit: contain;
+	object-fit: contain;
+}
+.school-name.svelte-wxs4ch {
+	font-size: 16px;
+	font-weight: 700;
+	margin-bottom: 5px;
+}
+.school-address.svelte-wxs4ch {
+	font-size: 12px;
+	opacity: 0.9;
+}
+.card-body.svelte-wxs4ch {
+	padding: 20px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+.photo-container.svelte-wxs4ch {
+	width: 125px;
+	height: 150px;
+	border: 2px solid #1a237e;
+	margin: 0 auto;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #f5f5f5;
+}
+.photo-container.svelte-wxs4ch img:where(.svelte-wxs4ch) {
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+}
+.position-title.svelte-wxs4ch {
+	font-size: 18px;
+	font-weight: 700;
+	color: #1a237e;
+	text-align: center;
+	margin: 10px 0;
+	text-transform: uppercase;
+}
+.student-info.svelte-wxs4ch {
+	margin-top: 20px;
+	flex: 1;
+}
+.info-row.svelte-wxs4ch {
+	display: flex;
+	margin-bottom: 8px;
+	font-size: 14px;
+}
+.info-label.svelte-wxs4ch,
+.nip-label.svelte-wxs4ch {
+	font-weight: 600;
+	width: 100px;
+	color: #1a237e;
+}
+.info-value.svelte-wxs4ch {
+	flex: 1;
+}
+.valid-period.svelte-wxs4ch {
+	text-align: center;
+	font-size: 12px;
+	color: #666;
+	margin-top: 15px;
+	font-style: italic;
+}
+.id-card-back.svelte-wxs4ch {
+	background: linear-gradient(135deg, #f5f7fa, #e4f5e9);
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #ddd;
+}
+.back-header.svelte-wxs4ch {
+	text-align: center;
+	margin-bottom: 20px;
+}
+.back-title.svelte-wxs4ch {
+	font-size: 18px;
+	font-weight: 700;
+	color: #1a237e;
+	margin-bottom: 5px;
+}
+.back-subtitle.svelte-wxs4ch {
+	font-size: 14px;
+	color: #555;
+}
+.rules-container.svelte-wxs4ch {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 15px;
+	background-color: #fff;
+	margin-bottom: 20px;
+	flex: 1;
+}
+.rules-title.svelte-wxs4ch {
+	text-align: center;
+	font-weight: 700;
+	margin-bottom: 10px;
+	color: #1a237e;
+}
+.rules-list.svelte-wxs4ch {
+	font-size: 12px;
+	padding-left: 25px;
+}
+.rules-list.svelte-wxs4ch li:where(.svelte-wxs4ch) {
+	margin-bottom: 6px;
+}
+.qr-container.svelte-wxs4ch {
+	text-align: center;
+	margin-bottom: 15px;
+}
+.qr-title.svelte-wxs4ch {
+	font-size: 12px;
+	margin-bottom: 5px;
+	color: #555;
+}
+.qr-code.svelte-wxs4ch {
+	width: 120px;
+	height: 120px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.signature-container.svelte-wxs4ch {
+	text-align: center;
+}
+.signature-line.svelte-wxs4ch {
+	width: 150px;
+	height: 1px;
+	background-color: #000;
+	margin: 40px auto 5px;
+}
+.signature-name.svelte-wxs4ch {
+	font-weight: 700;
+	font-size: 12px;
+}
+.signature-title.svelte-wxs4ch {
+	font-size: 11px;
+	color: #555;
+}
+.watermark.svelte-wxs4ch {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(-45deg);
+	font-size: 36px;
+	color: #0000000a;
+	pointer-events: none;
+	white-space: nowrap;
+}
+@media print {
+	.controls.svelte-wxs4ch,
+	h1.svelte-wxs4ch {
+		display: none;
+	}
+	.card-container.svelte-wxs4ch {
+		display: block;
+		page-break-inside: avoid;
+	}
+	.card-pair.svelte-wxs4ch {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 20px;
+		page-break-inside: avoid;
+		page-break-after: always;
+		margin-bottom: 0;
+		padding: 20px 0;
+	}
+	.id-card.svelte-wxs4ch {
+		-moz-column-break-inside: avoid;
+		break-inside: avoid;
+		page-break-inside: avoid;
+		box-shadow: none;
+		width: 400px;
+		height: 700px;
+	}
+	.id-card-front.svelte-wxs4ch,
+	.id-card-back.svelte-wxs4ch {
+		border: 1px solid #000 !important;
+	}
+	.header.svelte-wxs4ch {
+		background: #1a237e !important;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+	}
+	.photo-container.svelte-wxs4ch {
+		border: 2px solid #000 !important;
+	}
+	* {
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+	}
+}
