@@ -224,13 +224,13 @@
 
 <style>
 	/* Gabungkan style duplikat untuk body dan h1 */
-	:global(body) {
+	/* :global(body) {
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 20px;
 		background-color: #f0f8f0;
-	}
+	} */
 
 	h1 {
 		color: #0a5c36;

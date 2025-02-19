@@ -22,20 +22,24 @@
 				items: [
 					{
 						title: 'Daftar Siswa',
-						url: '/dashboard/student'
+						url: '/students'
 					},
 					{
-						title: 'Mutasi',
-						url: '#'
+						title: 'Cetak Kartu',
+						url: '/id-card/students'
 					},
-					{
-						title: 'Akademik',
-						url: '#'
-					},
-					{
-						title: 'Daftar PIP',
-						url: '#'
-					}
+					// {
+					// 	title: 'Mutasi',
+					// 	url: '#'
+					// },
+					// {
+					// 	title: 'Akademik',
+					// 	url: '#'
+					// },
+					// {
+					// 	title: 'Daftar PIP',
+					// 	url: '#'
+					// }
 				]
 			},
 			{
@@ -44,34 +48,55 @@
 				icon: Contact,
 				items: [
 					{
-						title: 'Daftar GTK',
-						url: '#'
+						title: 'Daftar Guru',
+						url: '/teachers'
 					},
 					{
-						title: 'Mutasi',
-						url: '#'
+						title: 'Daftar Staff',
+						url: '/staff'
 					},
 					{
-						title: 'Pengajuan GTK',
-						url: '#'
-					}
+						title: 'Cetak Kartu',
+						url: '/id-card/employee'
+					},
+					// {
+					// 	title: 'Mutasi',
+					// 	url: '#'
+					// },
+					// {
+					// 	title: 'Pengajuan GTK',
+					// 	url: '#'
+					// }
 				]
 			},
 			{
-				title: 'Akademik',
+				title: 'Pengaturan Tambahan',
 				url: '#',
 				icon: BookOpen,
 				items: [
 					{
 						title: 'Rombongan Belajar',
-						url: '#'
+						url: '/classes'
 					},
 					{
-						title: 'Rapor Online',
-						url: '#'
+						title: 'Jadwal Kelas',
+						url: '/schedules'
+					},
+					{
+						title: 'Tahun Pelajaran',
+						url: '/academic-year'
+					},
+					{
+						title: 'Ruangan',
+						url: '/rooms'
+					},
+					{
+						title: 'Mata Pelajaran',
+						url: '/subjects'
 					}
 				]
-			}
+			},
+			
 			// {
 			// 	title: "Settings",
 			// 	url: "#",
@@ -99,14 +124,14 @@
 		projects: [
 			{
 				name: 'Absensi',
-				url: '/dashboard/attendances',
+				url: '/attendances',
 				icon: NotebookPen
 			},
-			{
-				name: 'Data User',
-				url: '/dashboard/user',
-				icon: Users
-			}
+			// {
+			// 	name: 'Rombongan Belajar',
+			// 	url: '/classes',
+			// 	icon: Users
+			// }
 		]
 	};
 </script>
@@ -125,12 +150,12 @@
 	}: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
 
-<Sidebar.Root bind:ref {collapsible} {...restProps}>
-	<Sidebar.Header>
+<Sidebar.Root  bind:ref {collapsible} {...restProps}>
+	<!-- <Sidebar.Header>
 		<img src="/favicon.png" alt="logo" class="h-20 w-20 m-2 self-center" />
-		<!-- svelte-ignore a11y_distracting_elements -->
+		svelte-ignore a11y_distracting_elements
 		<marquee class="text-sm self-center">Made by Hasbi Awal</marquee>
-	</Sidebar.Header>
+	</Sidebar.Header> -->
 	<Sidebar.Content>
 		<NavMain items={data.navMain} />
 		<NavProjects projects={data.projects} />

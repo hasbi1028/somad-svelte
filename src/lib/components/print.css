@@ -1,12 +1,12 @@
 /* print.css */
 @media print {
-	:global(body) {
+	/* :global(body) {
 		width: 100%;
 		max-width: none;
 		margin: 0;
 		padding: 0;
 		background-color: white;
-	}
+	} */
 
 	.controls,
 	h1 {
