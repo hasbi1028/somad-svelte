@@ -43,6 +43,7 @@
 	},
 	"dependencies": {
 		"@tanstack/table-core": "^8.21.2",
+		"html5-qrcode": "^2.3.8",
 		"pocketbase": "^0.25.1"
 	}
 }

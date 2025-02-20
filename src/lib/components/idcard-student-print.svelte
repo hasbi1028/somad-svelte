@@ -9,6 +9,7 @@
 		id: string;
 		nism: string;
 		nisn: string;
+		user_id: string;
 		name: string;
 		class: string;
 		address: string;
@@ -21,16 +22,29 @@
 
 	// Store untuk menyimpan data kartu siswa
 	let cards = writable<StudentCard[]>([]);
+	// Variabel untuk menyimpan data kelas dari Pocketbase
+	let classesData: any[] = [];
+
+	// Variabel untuk filter kelas (default: 'all' untuk menampilkan semua)
+	let selectedClass: string = 'all';
+
+	// Variabel reaktif untuk menyaring kartu berdasarkan kelas yang dipilih
+	$: filteredCards = $cards.filter(card => selectedClass === 'all' || card.class === selectedClass);
 
 	// Fungsi generate QR code menggunakan qrcode-generator
 	function generateQRCode(data: StudentCard): string {
-		const qrData = `NISM:${data.nism},NISN:${data.nisn},NAMA:${data.name},KELAS:${data.class}`;
-		const typeNumber = 4;
-		const errorCorrectionLevel = 'L';
-		const qr = QRCode(typeNumber, errorCorrectionLevel);
-		qr.addData(qrData);
-		qr.make();
-		return qr.createSvgTag({ cellSize: 4, margin: 1 });
+		try {
+			const qrData = `ID:${data.user_id},BERLAKU SAMPAI:${data.validThru}`;
+			const typeNumber = 4;
+			const errorCorrectionLevel = 'L';
+			const qr = QRCode(typeNumber, errorCorrectionLevel);
+			qr.addData(qrData);
+			qr.make();
+			return qr.createSvgTag({ cellSize: 4, margin: 1 });
+		} catch (err) {
+			console.error('Error generating QR code:', err);
+			return '';
+		}
 	}
 
 	// Fungsi untuk mengambil data dari Pocketbase dan melakukan mapping
@@ -44,6 +58,9 @@
 				pb.collection('positions').getFullList()
 			]);
 
+			// Simpan data kelas ke variabel classesData untuk digunakan pada select
+			classesData = classes;
+
 			// Buat mapping untuk memudahkan pencarian berdasarkan id
 			const userMap = Object.fromEntries(users.map(u => [u.id, u]));
 			const classMap = Object.fromEntries(classes.map(c => [c.id, c]));
@@ -54,7 +71,7 @@
 				const user = userMap[s.user_id] || {};
 				const classData = classMap[s.class_id] || {};
 				// Ambil data posisi dari user jika ada (user.position_id)
-				const position:any = user.position_id ? positionMap[user.position_id] || {} : {};
+				const position: any = user.position_id ? positionMap[user.position_id] || {} : {};
 
 				// Contoh penghitungan academicYear dan validThru berdasarkan field entry_year
 				const academicYear = s.entry_year ? `${s.entry_year}/${Number(s.entry_year) + 1}` : '2024/2025';
@@ -64,6 +81,7 @@
 					id: s.id,
 					nism: s.nism || '',
 					nisn: s.nisn || '',
+					user_id: s.user_id,
 					name: user.full_name || '',
 					class: classData.name || '',
 					address: user.address || '',
@@ -97,12 +115,20 @@
 	<div class="controls">
 		<!-- Tombol untuk mengambil data dari Pocketbase dan melakukan mapping -->
 		<button on:click={generateCards}>Ambil Semua Kartu</button>
-		<!-- Tombol untuk mencetak semua kartu -->
+		<!-- Select untuk memilih kelas berdasarkan data kelas dari Pocketbase -->
+		<label for="classSelect">Pilih Kelas: </label>
+		<select id="classSelect" bind:value={selectedClass}>
+			<option value="all">Semua</option>
+			{#each classesData as kelas}
+				<option value={kelas.name}>{kelas.name}</option>
+			{/each}
+		</select>
+		<!-- Tombol untuk mencetak kartu berdasarkan filter kelas -->
 		<button on:click={handlePrint}>Cetak Kartu</button>
 	</div>
 
 	<div class="card-container">
-		{#each $cards as card (card.id)}
+		{#each filteredCards as card (card.id)}
 			<div class="card-pair">
 				<!-- Kartu Sisi Depan -->
 				<div class="id-card id-card-front rounded-lg">
@@ -112,7 +138,7 @@
 						</div>
 						<div class="school-name">MTs NEGERI 2 KOLAKA UTARA</div>
 						<div class="school-address">
-							Jl. Poros Sulawesi, Desa Lapolu, Kec. Batu Putih, Kab. Kolaka Utara, Sulawesi Tenggara
+							Jl. Lalume No. 42, Kel. Olo - Oloho, Kec. Pakue, Kab. Kolaka Utara, Sulawesi Tenggara
 						</div>
 					</div>
 
@@ -140,7 +166,13 @@
 							</div>
 							<div class="info-row">
 								<div class="info-label">TTL:</div>
-								<div class="info-value">{card.dob}</div>
+								<div class="info-value">
+									{new Date(card.dob).toLocaleString('id-ID', {
+										day: 'numeric',
+										month: 'long',
+										year: 'numeric'
+									})}
+								</div>
 							</div>
 							<div class="info-row">
 								<div class="info-label">Alamat:</div>
@@ -194,7 +226,7 @@
 
 					<div class="signature-container">
 						<div class="signature-line"></div>
-						<div class="signature-name">Drs. H. Abdul Karim, M.Pd</div>
+						<div class="signature-name">Anwar, S.Pd, M.Pd</div>
 						<div class="signature-title">Kepala Madrasah</div>
 					</div>
 
@@ -228,13 +260,20 @@
 		border: none;
 		border-radius: 4px;
 		cursor: pointer;
-		margin-right: 10px;
+		margin: 0 10px 10px 0;
 		font-weight: 500;
 		transition: background-color 0.3s;
 	}
 
 	button:hover {
 		background-color: #083e25;
+	}
+
+	select {
+		padding: 8px;
+		border-radius: 4px;
+		border: 1px solid #ccc;
+		font-size: 14px;
 	}
 
 	.card-container {

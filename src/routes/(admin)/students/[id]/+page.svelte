@@ -264,14 +264,7 @@
 		border: 1px solid #ccc;
 		border-radius: 4px;
 	}
-	button {
-		padding: 0.75rem 1.5rem;
-		background-color: #007acc;
-		color: #fff;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-	}
+
 	.error {
 		color: red;
 	}

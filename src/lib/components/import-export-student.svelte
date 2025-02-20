@@ -183,147 +183,155 @@
 	}
 
 	export async function importStudents() {
-		if (!csvFile) {
-			importError = 'Silakan pilih file CSV';
-			return;
-		}
+  if (!csvFile) {
+    importError = 'Silakan pilih file CSV';
+    return;
+  }
 
-		importStatus = 'Mengimpor...';
-		importError = '';
+  importStatus = 'Mengimpor...';
+  importError = '';
 
-		try {
-			// Baca isi file CSV dan pisahkan baris yang tidak kosong
-			const text = await csvFile.text();
-			const rows = text.split('\n').filter((row) => row.trim() !== '');
-			if (rows.length < 2) {
-				importError = 'File CSV tidak memiliki data.';
-				importStatus = '';
-				return;
-			}
+  try {
+    // Baca isi file CSV dan pisahkan baris yang tidak kosong
+    const text = await csvFile.text();
+    const rows = text.split('\n').filter(row => row.trim() !== '');
+    if (rows.length < 2) {
+      importError = 'File CSV tidak memiliki data.';
+      importStatus = '';
+      return;
+    }
 
-			// Baris pertama merupakan header
-			const headers = rows[0].split(',').map((h) => h.trim());
+	console.log(rows+'ini data rows');
 
-			// Ambil mapping untuk posisi dan kelas
-			const [positions, classes] = await Promise.all([
-				pb.collection('positions').getFullList(),
-				pb.collection('classes').getFullList()
-			]);
+    // Baris pertama adalah header
+    const headers = rows[0].split(',').map(h => h.trim());
 
-			// Mapping: nama posisi ke id
-			const positionMapping: any = {};
-			positions.forEach((p) => {
-				if (p.name) positionMapping[p.name] = p.id;
-			});
+    // Ambil data mapping untuk posisi dan kelas
+    const [positions, classes] = await Promise.all([
+      pb.collection('positions').getFullList(),
+      pb.collection('classes').getFullList()
+    ]);
 
-			// Mapping: nama kelas ke id
-			const classMapping: any = {};
-			classes.forEach((c) => {
-				if (c.name) classMapping[c.name] = c.id;
-			});
+    // Mapping: nama posisi ke id
+    const positionMapping:any = {};
+    positions.forEach(p => {
+      if (p.name) positionMapping[p.name] = p.id;
+    });
 
-			let successCount = 0;
-			let errorCount = 0;
+    // Mapping: nama kelas ke id
+    const classMapping:any = {};
+    classes.forEach(c => {
+      if (c.name) classMapping[c.name] = c.id;
+    });
 
-			// Proses setiap baris data (mulai dari baris kedua)
-			for (let i = 1; i < rows.length; i++) {
-				try {
-					const values = rows[i].split(',').map((val) => val.trim());
-					if (values.length === 0 || values.every((val) => val === '')) continue;
+    let successCount = 0;
+    let errorCount = 0;
 
-					// Buat objek data berdasarkan header
-					const rowData: any = {};
-					headers.forEach((header, index) => {
-						rowData[header] = values[index] || '';
-					});
+    // Proses setiap baris data (dari baris kedua)
+    for (let i = 1; i < rows.length; i++) {
+      try {
+        const values = rows[i].split(',').map(val => val.trim());
+        if (values.length === 0 || values.every(val => val === '')) continue;
 
-					// Pisahkan data untuk user dan student
-					const userData: any = {
-						email: rowData.email,
-						nik: rowData.nik,
-						full_name: rowData.full_name,
-						birth_place: rowData.birth_place,
-						birth_date: rowData.birth_date,
-						gender: rowData.gender,
-						phone_number: rowData.phone_number,
-						address: rowData.address,
-						father_name: rowData.father_name,
-						mother_name: rowData.mother_name,
-						parent_phone: rowData.parent_phone,
-						blood_type: rowData.blood_type,
-						role: rowData.role
-						// Field 'position' akan dikonversi ke position_id
-					};
+        // Buat objek data berdasarkan header
+        const rowData:any = {};
+        headers.forEach((header, index) => {
+          rowData[header] = values[index] || '';
+        });
 
-					// Jika field position ada, map ke position_id
-					if (rowData.position) {
-						userData.position_id = positionMapping[rowData.position] || '';
-					}
+        // Pastikan NIK ada untuk auto generate
+        const nik = rowData.nik;
+        if (!nik) {
+          throw new Error(`Baris ${i} tidak memiliki nilai NIK untuk auto generate.`);
+        }
 
-					const studentData: any = {
-						nism: rowData.nism,
-						nisn: rowData.nisn,
-						status: rowData.status,
-						entry_year: rowData.entry_year
-						// Field 'class' akan dikonversi ke class_id
-					};
+        // Auto generate email, password, dan passwordConfirm bila kosong
+        const userData:any = {
+          email: rowData.email || `${nik}@example.com`,
+          nik: nik,
+          full_name: rowData.full_name,
+          birth_place: rowData.birth_place,
+          birth_date: rowData.birth_date,
+          gender: rowData.gender,
+          phone_number: rowData.phone_number,
+          address: rowData.address,
+          father_name: rowData.father_name,
+          mother_name: rowData.mother_name,
+          parent_phone: rowData.parent_phone,
+          blood_type: rowData.blood_type,
+          role: rowData.role,
+          password: rowData.password || nik,
+          passwordConfirm: rowData.passwordConfirm || nik
+        };
 
-					// Konversi field class ke class_id jika ada
-					if (rowData.class) {
-						studentData.class_id = classMapping[rowData.class] || '';
-					}
+        // Mapping field position ke position_id jika tersedia
+        if (rowData.position) {
+          userData.position_id = positionMapping[rowData.position] || '';
+        }
 
-					// Cari user berdasarkan email
-					const existingUsers = await pb.collection('users').getList(1, 1, {
-						filter: `email = "${userData.email}"`
-					});
+        // Buat data student
+        const studentData:any = {
+          nism: rowData.nism,
+          nisn: rowData.nisn,
+          status: rowData.status,
+          entry_year: rowData.entry_year
+        };
 
-					if (existingUsers.items.length > 0) {
-						// Jika user sudah ada, update data user
-						const existingUser = existingUsers.items[0];
-						await pb.collection('users').update(existingUser.id, userData);
+        // Mapping field class ke class_id jika tersedia
+        if (rowData.class) {
+          studentData.class_id = classMapping[rowData.class] || '';
+        }
 
-						// Cari data student berdasarkan user_id
-						const existingStudents = await pb.collection('students').getList(1, 1, {
-							filter: `user_id = "${existingUser.id}"`
-						});
+        // Cari user berdasarkan email (email dianggap unik)
+        const existingUsers = await pb.collection('users').getList(1, 1, {
+          filter: `email = "${userData.email}"`
+        });
 
-						if (existingStudents.items.length > 0) {
-							// Update student jika sudah ada
-							await pb.collection('students').update(existingStudents.items[0].id, studentData);
-						} else {
-							// Jika belum ada, buat data student baru dengan user_id
-							await pb.collection('students').create({ ...studentData, user_id: existingUser.id });
-						}
-					} else {
-						// Jika user belum ada, buat user baru
-						const newUser = await pb.collection('users').create(userData);
-						// Buat data student baru dengan user_id baru
-						await pb.collection('students').create({ ...studentData, user_id: newUser.id });
-					}
+        if (existingUsers.items.length > 0) {
+          // Jika user sudah ada, update data user dan student terkait
+          const existingUser = existingUsers.items[0];
+          await pb.collection('users').update(existingUser.id, userData);
 
-					successCount++;
-				} catch (rowError) {
-					console.error(`Error processing row ${i}:`, rowError);
-					errorCount++;
-				}
-			}
+          const existingStudents = await pb.collection('students').getList(1, 1, {
+            filter: `user_id = "${existingUser.id}"`
+          });
 
-			importStatus = `Impor selesai: ${successCount} siswa berhasil diimpor/diperbarui, ${errorCount} kesalahan.`;
+          if (existingStudents.items.length > 0) {
+            await pb.collection('students').update(existingStudents.items[0].id, studentData);
+          } else {
+            await pb.collection('students').create({ ...studentData, user_id: existingUser.id });
+          }
+        } else {
+          // Jika user belum ada, buat user baru beserta data student terkait
+          const newUser = await pb.collection('users').create(userData);
+		  console.log(userData);
+          await pb.collection('students').create({ ...studentData, user_id: newUser.id });
+        }
 
-			if (errorCount === 0) {
-				setTimeout(() => {
-					importDialogOpen = false;
-					importStatus = '';
-					csvFile = null;
-				}, 3000);
-			}
-		} catch (err) {
-			console.error('Error parsing CSV:', err);
-			importError = 'Terjadi kesalahan saat memproses file CSV. Pastikan formatnya benar.';
-			importStatus = '';
-		}
-	}
+        successCount++;
+      } catch (rowError) {
+        console.error(`Error processing row ${i}:`, rowError);
+        errorCount++;
+      }
+    }
+
+    importStatus = `Impor selesai: ${successCount} siswa berhasil diimpor/diperbarui, ${errorCount} kesalahan.`;
+
+    if (errorCount === 0) {
+      setTimeout(() => {
+        importDialogOpen = false;
+        importStatus = '';
+        csvFile = null;
+      }, 3000);
+    }
+  } catch (err) {
+    console.error('Error parsing CSV:', err);
+    importError = 'Terjadi kesalahan saat memproses file CSV. Pastikan formatnya benar.';
+    importStatus = '';
+  }
+}
+
+
 </script>
 
 <Button size="sm" variant="outline" class="h-7 gap-1" onclick={() => (importDialogOpen = true)}>

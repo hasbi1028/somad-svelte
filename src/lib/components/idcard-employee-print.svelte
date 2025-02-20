@@ -133,7 +133,7 @@
 						</div>
 						<div class="school-name">MTs NEGERI 2 KOLAKA UTARA</div>
 						<div class="school-address">
-							Jl. Poros Sulawesi, Desa Lapolu, Kec. Batu Putih, Kab. Kolaka Utara, Sulawesi Tenggara
+							Jl. Lalume No. 42, Kel. Olo - Oloho, Kec. Pakue, Kab. Kolaka Utara, Sulawesi Tenggara
 						</div>
 					</div>
 
@@ -207,7 +207,7 @@
 
 					<div class="signature-container">
 						<div class="signature-line"></div>
-						<div class="signature-name">Drs. H. Abdul Karim, M.Pd</div>
+						<div class="signature-name">Anwar, S.Pd, M.Pd</div>
 						<div class="signature-title">Kepala Madrasah</div>
 					</div>
 
@@ -355,11 +355,6 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-	}
-
-	.student-info {
-		margin-top: 20px;
-		flex: 1;
 	}
 
 	.info-row {
