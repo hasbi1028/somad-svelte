@@ -104,7 +104,7 @@
 			const { Html5QrcodeScanner } = await import("html5-qrcode");
 			const config = {
 				fps: 10,
-				qrbox: { width: 250, height: 250 }
+				qrbox: { width: 300, height: 300 }
 			};
 			scanner = new Html5QrcodeScanner("qr-reader", config, false);
 			scanner.render(onScanSuccess, (err: any) => {
@@ -171,7 +171,7 @@
 	</div>
 
 	<!-- Area untuk scanner -->
-	<div id="qr-reader" style="width: 300px; margin: 20px auto;"></div>
+	<div id="qr-reader" style="width: 500px; margin: 20px auto;"></div>
 
 	{#if qrResult}
 		<div>

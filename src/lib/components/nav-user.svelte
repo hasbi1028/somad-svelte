@@ -11,6 +11,9 @@
 	import LogOut from 'lucide-svelte/icons/log-out';
 	import Sparkles from 'lucide-svelte/icons/sparkles';
 	import { goto } from '$app/navigation';
+	import { Moon, Sun } from 'lucide-svelte';
+	import Button from './ui/button/button.svelte';
+	import { toggleMode } from 'mode-watcher';
 
 	let { user }: { user: { name: string; email: string; avatar: string } } = $props();
 	const sidebar = useSidebar();
@@ -54,6 +57,12 @@
 							<span class="truncate font-semibold">{user.name}</span>
 							<span class="truncate text-xs">{user.email}</span>
 						</div>
+						<Button onclick={toggleMode} variant="outline" size="sm" class="mr-2 w-8">
+							<Sun class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"></Sun>
+							<Moon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+							<span class="sr-only">Toggle theme</span>
+						</Button>
+						
 					</div>
 				</DropdownMenu.Label>
 
@@ -63,7 +72,6 @@
 						<BadgeCheck />
 						Account
 					</DropdownMenu.Item>
-
 					<DropdownMenu.Item>
 						<Bell />
 						Notifications

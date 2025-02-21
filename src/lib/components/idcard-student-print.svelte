@@ -109,15 +109,15 @@
 	<title>ID Card Generator MTs Negeri 2 Kolaka Utara</title>
 </svelte:head>
 
-<main>
-	<h1>ID Card Generator MTs Negeri 2 Kolaka Utara</h1>
+<main class="bg-white p-4">
+	<label class="block mb-2 text-sm font-medium flex justify-center">ID Card Generator MTs Negeri 2 Kolaka Utara</label>
 
 	<div class="controls">
 		<!-- Tombol untuk mengambil data dari Pocketbase dan melakukan mapping -->
 		<button on:click={generateCards}>Ambil Semua Kartu</button>
 		<!-- Select untuk memilih kelas berdasarkan data kelas dari Pocketbase -->
-		<label for="classSelect">Pilih Kelas: </label>
-		<select id="classSelect" bind:value={selectedClass}>
+		<label for="classSelect" class="mb-2 text-sm font-medium text-gray-900">Pilih Kelas: </label>
+		<select class="text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 " id="classSelect" bind:value={selectedClass}>
 			<option value="all">Semua</option>
 			{#each classesData as kelas}
 				<option value={kelas.name}>{kelas.name}</option>
@@ -147,7 +147,7 @@
 							<img src="https://placehold.co/120x150" alt="Foto Siswa" />
 						</div>
 
-						<div class="student-info">
+						<div class="student-info text-gray-900">
 							<div class="info-row">
 								<div class="info-label">NISM:</div>
 								<div class="info-value">{card.nism}</div>
@@ -174,7 +174,7 @@
 									})}
 								</div>
 							</div>
-							<div class="info-row">
+							<div class="info-row ">
 								<div class="info-label">Alamat:</div>
 								<div class="info-value">{card.address}</div>
 							</div>

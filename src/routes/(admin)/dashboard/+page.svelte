@@ -14,16 +14,6 @@
 	<div class="flex items-center gap-2 px-4">
 		<Sidebar.Trigger class="-ml-1" />
 		<Separator orientation="vertical" class="mr-2 h-4" />
-		<Button onclick={toggleMode} variant="outline" size="sm" class="mr-2">
-			<Sun
-				class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-			/>
-			<Moon
-				class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-			/>
-			<span class="sr-only">Toggle theme</span>
-		</Button>
-		<Separator orientation="vertical" class="mr-2 h-4" />
 		<div class="bg-muted/50 min-h-[100vh] flex-1 rounded-lg md:min-h-min">
 			<div class="px-4 py-1 text-sm">
 				Selamat datang Admin. Selamat datang di halaman admin. Anda dapat mengatur berbagai halaman

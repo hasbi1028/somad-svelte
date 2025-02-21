@@ -126,12 +126,12 @@
 				name: 'Absensi',
 				url: '/attendances',
 				icon: NotebookPen
+			},
+			{
+				name: 'Daftar Hadir',
+				url: '/attendances/list',
+				icon: Users
 			}
-			// {
-			// 	name: 'Rombongan Belajar',
-			// 	url: '/classes',
-			// 	icon: Users
-			// }
 		]
 	};
 </script>
